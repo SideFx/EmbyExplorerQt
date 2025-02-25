@@ -13,6 +13,13 @@ Fetched Home videos collection
 Collection exported to Excel
 ![grafik](https://github.com/user-attachments/assets/de847d2c-6c7c-4353-b118-0bc38425479d)
 
+Credits go to:
+Pavel Akimov <oxod.pavel@gmail.com> and Alexandr Belyak <programmeralex@bk.ru>
+
+authors of "SimpleXlsxWriter" Library
+
+https://sourceforge.net/projects/simplexlsx/
+
 
 
 
