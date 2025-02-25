@@ -2,11 +2,6 @@ Emby Explorer (Qt)
 
 Browse and export Emby collections
 
-Credits go to:
-Pavel Akimov <oxod.pavel@gmail.com> and Alexandr Belyak <programmeralex@bk.ru>
-for "SimpleXlsxWriter" Library
-https://sourceforge.net/projects/simplexlsx/
-
 Welcome screen
 ![grafik](https://github.com/user-attachments/assets/2911aa53-ae0b-4dc5-ba99-0b2ed9036c5f)
 
@@ -17,6 +12,13 @@ Fetched Home videos collection
 
 Collection exported to Excel
 ![grafik](https://github.com/user-attachments/assets/de847d2c-6c7c-4353-b118-0bc38425479d)
+
+Credits go to:
+Pavel Akimov <oxod.pavel@gmail.com> and Alexandr Belyak <programmeralex@bk.ru>
+
+authors of "SimpleXlsxWriter" Library
+
+https://sourceforge.net/projects/simplexlsx/
 
 
 
