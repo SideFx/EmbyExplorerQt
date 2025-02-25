@@ -169,7 +169,6 @@ void MainWindow::onActionFetch() {
             }
             else if (coll.CollectionType == COLLECTION_HOMEVIDEOS) {
                 VideoDataType v = data.value<VideoDataType>();
-                ui->tableView->setItem(i, j++, new QTableWidgetItem(v.TypeKind));
                 if (v.TypeKind == TYPEKIND_VIDEO) id = v.VideoId;
                 else if (v.TypeKind == TYPEKIND_FOLDER) id = v.FolderId;
                 ui->tableView->setItem(i, j++, new QTableWidgetItem(id));
