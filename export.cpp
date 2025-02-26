@@ -17,7 +17,6 @@ Export::~Export() {}
 int Export::ExportCollection(QString fileName, QString sheetName, QVector<ColumnsType> colDef) {
     int cols = table->columnCount() - 1; // first column is hidden
     int rows = table->rowCount();
-    if (cols != colDef.length()) return 14;
     int i, j;
     setlocale(LC_ALL, "");
     CWorkbook book(QString(EXPORT_BOOKNAME).toStdString());
