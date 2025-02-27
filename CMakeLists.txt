@@ -28,6 +28,8 @@ qt_standard_project_setup(
     I18N_TRANSLATED_LANGUAGES en
 )
 
+add_subdirectory(QXlsx)
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/appicon.rc")
     qt_add_executable(EmbyExplorerQt
@@ -52,16 +54,11 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         assets/embylogo.png
         ${app_icon_resource_windows}
         assets/toolbar_about.svg
-        lib/libSimpleXlsx.a
-        include/PathManager.hpp include/UTF8Encoder.hpp include/XMLWriter.hpp
-        include/scratch/clsScratchTable.h
-        include/Xlsx/Chart.h include/Xlsx/Chartsheet.h include/Xlsx/Drawing.h include/Xlsx/SimpleXlsxDef.h include/Xlsx/Workbook.h include/Xlsx/Worksheet.h include/Xlsx/XlsxHeaders.h
-        include/XLSXColors/clsRGBColorRecord.h include/XLSXColors/XLSXColorLib.h
-        include/Zip/zip.h
         export.h export.cpp
         messagedialog.h messagedialog.cpp
         aboutdialog.h aboutdialog.cpp aboutdialog.ui
         .gitignore
+        QXlsx/cmake/modules/CPackConfig.cmake QXlsx/cmake/modules/qxlsx-config-version.cmake.in QXlsx/cmake/modules/qxlsx-config.cmake.in QXlsx/header/xlsxabstractooxmlfile.h QXlsx/header/xlsxabstractooxmlfile_p.h QXlsx/header/xlsxabstractsheet.h QXlsx/header/xlsxabstractsheet_p.h QXlsx/header/xlsxcell.h QXlsx/header/xlsxcell_p.h QXlsx/header/xlsxcellformula.h QXlsx/header/xlsxcellformula_p.h QXlsx/header/xlsxcelllocation.h QXlsx/header/xlsxcellrange.h QXlsx/header/xlsxcellreference.h QXlsx/header/xlsxchart.h QXlsx/header/xlsxchart_p.h QXlsx/header/xlsxchartsheet.h QXlsx/header/xlsxchartsheet_p.h QXlsx/header/xlsxcolor_p.h QXlsx/header/xlsxconditionalformatting.h QXlsx/header/xlsxconditionalformatting_p.h QXlsx/header/xlsxcontenttypes_p.h QXlsx/header/xlsxdatavalidation.h QXlsx/header/xlsxdatavalidation_p.h QXlsx/header/xlsxdatetype.h QXlsx/header/xlsxdocpropsapp_p.h QXlsx/header/xlsxdocpropscore_p.h QXlsx/header/xlsxdocument.h QXlsx/header/xlsxdocument_p.h QXlsx/header/xlsxdrawing_p.h QXlsx/header/xlsxdrawinganchor_p.h QXlsx/header/xlsxformat.h QXlsx/header/xlsxformat_p.h QXlsx/header/xlsxglobal.h QXlsx/header/xlsxmediafile_p.h QXlsx/header/xlsxnumformatparser_p.h QXlsx/header/xlsxrelationships_p.h QXlsx/header/xlsxrichstring.h QXlsx/header/xlsxrichstring_p.h QXlsx/header/xlsxsharedstrings_p.h QXlsx/header/xlsxsimpleooxmlfile_p.h QXlsx/header/xlsxstyles_p.h QXlsx/header/xlsxtheme_p.h QXlsx/header/xlsxutility_p.h QXlsx/header/xlsxworkbook.h QXlsx/header/xlsxworkbook_p.h QXlsx/header/xlsxworksheet.h QXlsx/header/xlsxworksheet_p.h QXlsx/header/xlsxzipreader_p.h QXlsx/header/xlsxzipwriter_p.h QXlsx/source/xlsxabstractooxmlfile.cpp QXlsx/source/xlsxabstractsheet.cpp QXlsx/source/xlsxcell.cpp QXlsx/source/xlsxcellformula.cpp QXlsx/source/xlsxcelllocation.cpp QXlsx/source/xlsxcellrange.cpp QXlsx/source/xlsxcellreference.cpp QXlsx/source/xlsxchart.cpp QXlsx/source/xlsxchartsheet.cpp QXlsx/source/xlsxcolor.cpp QXlsx/source/xlsxconditionalformatting.cpp QXlsx/source/xlsxcontenttypes.cpp QXlsx/source/xlsxdatavalidation.cpp QXlsx/source/xlsxdatetype.cpp QXlsx/source/xlsxdocpropsapp.cpp QXlsx/source/xlsxdocpropscore.cpp QXlsx/source/xlsxdocument.cpp QXlsx/source/xlsxdrawing.cpp QXlsx/source/xlsxdrawinganchor.cpp QXlsx/source/xlsxformat.cpp QXlsx/source/xlsxmediafile.cpp QXlsx/source/xlsxnumformatparser.cpp QXlsx/source/xlsxrelationships.cpp QXlsx/source/xlsxrichstring.cpp QXlsx/source/xlsxsharedstrings.cpp QXlsx/source/xlsxsimpleooxmlfile.cpp QXlsx/source/xlsxstyles.cpp QXlsx/source/xlsxtheme.cpp QXlsx/source/xlsxutility.cpp QXlsx/source/xlsxworkbook.cpp QXlsx/source/xlsxworksheet.cpp QXlsx/source/xlsxzipreader.cpp QXlsx/source/xlsxzipwriter.cpp QXlsx/CMakeLists.txt QXlsx/QXlsx.pri QXlsx/QXlsx.pro
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET EmbyExplorerQt APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -86,7 +83,7 @@ else()
 endif()
 
 add_library(SimpleXlsx STATIC)
-target_link_libraries(EmbyExplorerQt PRIVATE Qt6::Widgets Qt6::Network ${CMAKE_SOURCE_DIR}/lib/libSimpleXlsx.a)
+target_link_libraries(EmbyExplorerQt PRIVATE Qt6::Widgets Qt6::Network QXlsx::QXlsx)
 add_dependencies(EmbyExplorerQt update_translations)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

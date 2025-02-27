@@ -5,8 +5,8 @@
 // https://sourceforge.net/projects/simplexlsx/
 //-----------------------------------------------------------------------------------------------------------
 #include "export.h"
-#include "include/Xlsx/Workbook.h"
-using namespace SimpleXlsx;
+//#include "include/Xlsx/Workbook.h"
+//using namespace SimpleXlsx;
 
 Export::Export(QTableWidget *parent) {
     table = parent;
@@ -15,6 +15,7 @@ Export::Export(QTableWidget *parent) {
 Export::~Export() {}
 
 int Export::ExportCollection(QString fileName, QString sheetName, QVector<ColumnsType> colDef) {
+	/*
     int cols = table->columnCount() - 1; // first column is hidden
     int rows = table->rowCount();
     int i, j;
@@ -42,6 +43,7 @@ int Export::ExportCollection(QString fileName, QString sheetName, QVector<Column
         }
         sheet.EndRow();
     }
-    if (book.Save(fileName.toStdString())) return MSG_OK;
+    if (book.Save(fileName.toStdString())) 	return MSG_OK;
+	*/
     return MSG_ERR13;
 }

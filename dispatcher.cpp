@@ -8,12 +8,25 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <qeventloop.h>
 
 Dispatcher::Dispatcher(QObject *parent) : QObject{parent} {
     buildDataTypesOutline();
 }
 
 Dispatcher::~Dispatcher() {}
+
+// MacOS compatibility: Trigger the Access Network popup in MacOS Sequoia
+void Dispatcher::EmbyCheckHost(embySettings settings) {
+    QString baseUrl = ((settings.https) ? protoHttps : protoHttp) + settings.address +
+                      ":" + settings.port;
+    QNetworkAccessManager manager;
+    QNetworkRequest request((QUrl(baseUrl)));
+    QNetworkReply* reply = manager.get(request);
+    QEventLoop loop;
+    QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    loop.exec();
+}
 
 int Dispatcher::EmbyAuthenticate(embySettings settings) {
     int returnCode = MSG_OK;
