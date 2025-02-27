@@ -14,7 +14,7 @@ Collection exported to Excel
 ![grafik](https://github.com/user-attachments/assets/de847d2c-6c7c-4353-b118-0bc38425479d)
 
 Credits go to:
-Daniel Nicoletti (dantti) and Jay Two (j2Doll) for "QXslx": https://github.com/QtExcel/QXlsx
+Daniel Nicoletti (dantti) and Jay Two (j2Doll) for "QXlsx": https://github.com/QtExcel/QXlsx
 
 
 
