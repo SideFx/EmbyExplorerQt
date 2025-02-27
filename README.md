@@ -14,11 +14,8 @@ Collection exported to Excel
 ![grafik](https://github.com/user-attachments/assets/de847d2c-6c7c-4353-b118-0bc38425479d)
 
 Credits go to:
-Pavel Akimov <oxod.pavel@gmail.com> and Alexandr Belyak <programmeralex@bk.ru>
+Daniel Nicoletti (dantti) and Jay Two (j2Doll) for "QXlsx": https://github.com/QtExcel/QXlsx
 
-authors of "SimpleXlsxWriter" Library
-
-https://sourceforge.net/projects/simplexlsx/
 
 
 
