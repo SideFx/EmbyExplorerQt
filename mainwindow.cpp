@@ -111,7 +111,7 @@ void MainWindow::onActionFetch() {
     DetailsDataType o;
     if (cbxCollection->currentIndex() >= 0) {
         UserCollectionType coll = collections[cbxCollection->currentIndex()];
-        QVector collData = dis->EmbyGetCollectionData(coll.Id, coll.CollectionType);
+        QVector<QVariant> collData = dis->EmbyGetCollectionData(coll.Id, coll.CollectionType);
         detailsBuffer.clear();
         for (auto &data : collData) {
             ui->tableView->insertRow(i);
