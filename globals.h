@@ -9,7 +9,7 @@
 #define EMBY_PORT "8096"
 
 #define APP_NAME "Emby Explorer (Qt)"
-#define APP_VERSION "v1.0"
+#define APP_VERSION "v1.1"
 #define APP_NAMEQT "EmbyExplorerQt"
 #define SET_COMPANY "org.jan.buchholz"
 #define SET_WGEOMETRY "mainwindow/geometry"
@@ -69,6 +69,7 @@ typedef struct {
 typedef struct {
     QString Caption;
     int Width;
+    QString Column;
 } ColumnsType;
 
 typedef struct {

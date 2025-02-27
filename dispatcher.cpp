@@ -477,18 +477,18 @@ void Dispatcher::buildDataTypesOutline() {
                   QString("ProductionYear,People,Studios,Width,Height,Container,") +
                   QString("Overview,RunTimeTicks,Type");
     d.Columns = {
-        {CAP_TITLE, 70},
-        {CAP_ORIGINALTITLE, 70},
-        {CAP_YEAR, 10},
-        {CAP_TIME, 10},
-        {CAP_ACTORS, 90},
-        {CAP_DIRECTOR, 50},
-        {CAP_STUDIO, 40},
-        {CAP_GENRE, 50},
-        {CAP_EXTENSION, 10},
-        {CAP_CODEC, 12},
-        {CAP_RESOLUTION, 15},
-        {CAP_FILENAME, 70}
+        {CAP_TITLE, 70, "A"},
+        {CAP_ORIGINALTITLE, 70, "B"},
+        {CAP_YEAR, 10, "C"},
+        {CAP_TIME, 10, "D"},
+        {CAP_ACTORS, 90, "E"},
+        {CAP_DIRECTOR, 50, "F"},
+        {CAP_STUDIO, 40, "G"},
+        {CAP_GENRE, 50, "H"},
+        {CAP_EXTENSION, 10, "I"},
+        {CAP_CODEC, 12, "J"},
+        {CAP_RESOLUTION, 15, "K"},
+        {CAP_FILENAME, 70, "L"}
     };
     dataTypes.append(d);
     d.CollectionType = COLLECTION_TVSHOWS;
@@ -496,31 +496,31 @@ void Dispatcher::buildDataTypesOutline() {
                   QString("Studios,Width,Height,Container,RunTimeTicks,FileName,") +
                   QString("Overview,SeriesId,SeasonId,Id,ParentId,IndexNumber,Type");
     d.Columns = {
-        {CAP_SERIES, 50},
-        {CAP_EPISODE, 50},
-        {CAP_SEASON, 30},
-        {CAP_YEAR, 10},
-        {CAP_TIME, 10},
-        {CAP_ACTORS, 100},
-        {CAP_STUDIO, 40},
-        {CAP_GENRE, 50},
-        {CAP_EXTENSION, 10},
-        {CAP_CODEC, 12},
-        {CAP_RESOLUTION, 15},
-        {CAP_FILENAME, 70}
+        {CAP_SERIES, 50, "A"},
+        {CAP_EPISODE, 50, "B"},
+        {CAP_SEASON, 30, "C"},
+        {CAP_YEAR, 10, "D"},
+        {CAP_TIME, 10, "E"},
+        {CAP_ACTORS, 100, "F"},
+        {CAP_STUDIO, 40, "G"},
+        {CAP_GENRE, 50, "H"},
+        {CAP_EXTENSION, 10, "I"},
+        {CAP_CODEC, 12, "J"},
+        {CAP_RESOLUTION, 15, "K"},
+        {CAP_FILENAME, 70, "L"}
     };
     dataTypes.append(d);
     d.CollectionType = COLLECTION_HOMEVIDEOS;
     d.APIFields = QString("Name,MediaSources,Width,Height,Container,RunTimeTicks,") +
                   QString("FileName,ParentId,Type");
     d.Columns = {
-        {CAP_TITLE, 70},
-        {CAP_FOLDER, 30},
-        {CAP_TIME, 10},
-        {CAP_EXTENSION, 10},
-        {CAP_CODEC, 12},
-        {CAP_RESOLUTION, 15},
-        {CAP_FILENAME, 70}
+        {CAP_TITLE, 70, "A"},
+        {CAP_FOLDER, 30, "B"},
+        {CAP_TIME, 10, "C"},
+        {CAP_EXTENSION, 10, "D"},
+        {CAP_CODEC, 12, "E"},
+        {CAP_RESOLUTION, 15, "F"},
+        {CAP_FILENAME, 70, "G"}
     };
     dataTypes.append(d);
 }

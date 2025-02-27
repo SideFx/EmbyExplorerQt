@@ -1,12 +1,12 @@
 //-----------------------------------------------------------------------------------------------------------
 // Emby Explorer (Qt) (w) 2024-2025 by Jan Buchholz
 // Export to Excel file
-// uses SimpleXlsx by Pavel Akimov <oxod.pavel@gmail.com> and Alexandr Belyak <programmeralex@bk.ru>
-// https://sourceforge.net/projects/simplexlsx/
+// uses QXlsx by Daniel Nicoletti (dantti): https://github.com/QtExcel/QXlsx
 //-----------------------------------------------------------------------------------------------------------
 #include "export.h"
-//#include "include/Xlsx/Workbook.h"
-//using namespace SimpleXlsx;
+#include "xlsxdocument.h"
+#include "xlsxworkbook.h"
+#include "xlsxformat.h"
 
 Export::Export(QTableWidget *parent) {
     table = parent;
@@ -15,35 +15,31 @@ Export::Export(QTableWidget *parent) {
 Export::~Export() {}
 
 int Export::ExportCollection(QString fileName, QString sheetName, QVector<ColumnsType> colDef) {
-	/*
+    QXLSX_USE_NAMESPACE
     int cols = table->columnCount() - 1; // first column is hidden
     int rows = table->rowCount();
     int i, j;
-    setlocale(LC_ALL, "");
-    CWorkbook book(QString(EXPORT_BOOKNAME).toStdString());
-    std::vector<ColumnWidth> ColWidth;
-    for (i = 0; i < colDef.length(); i++) ColWidth.push_back(ColumnWidth(i, i, colDef[i].Width));
-    CWorksheet &sheet = book.AddSheet(sheetName.toStdString(), ColWidth);
-    Style header;
-    header.horizAlign = ALIGN_H_CENTER;
-    header.font.attributes = FONT_BOLD;
-    const size_t CenterStyleIndex = book.AddStyle(header);
-    Style standard;
-    standard.horizAlign = ALIGN_H_LEFT;
-    standard.font.attributes = FONT_NORMAL;
-    const size_t StandardStyleIndex = book.AddStyle(standard);
-    sheet.BeginRow();
-    for (i = 0; i < colDef.length(); i++) sheet.AddCell(colDef[i].Caption.toStdString(), CenterStyleIndex);
-    sheet.EndRow();
-    for (j = 0; j < rows; j++) {
-        sheet.BeginRow();
-        for (i = EXPORT_STARTCOLUMN; i <= cols; i++) {
-            QString itemText = table->item(j, i)->text();
-            sheet.AddCell(itemText.toStdString(), StandardStyleIndex);
-        }
-        sheet.EndRow();
+    QString cellName;
+    Document xlsx;
+    xlsx.addSheet(sheetName);
+    Format header;
+    header.setFontBold(true);
+    header.setHorizontalAlignment(Format::AlignHCenter);
+    for (i = 0; i < colDef.length(); i++) {
+        cellName = colDef[i].Column + "1";
+        xlsx.setColumnWidth(i + 1, colDef[i].Width);
+        xlsx.write(cellName, colDef[i].Caption, header);
     }
-    if (book.Save(fileName.toStdString())) 	return MSG_OK;
-	*/
+    Format standard;
+    standard.setFontBold(false);
+    standard.setHorizontalAlignment(Format::AlignLeft);
+    for (j = 0; j < rows; j++) {
+        for (i = EXPORT_STARTCOLUMN; i <= cols; i++) {
+            cellName = colDef[i - EXPORT_STARTCOLUMN].Column + QString::number(j + 2);
+            QString itemText = table->item(j, i)->text();
+            xlsx.write(cellName, itemText, standard);
+        }
+    }
+    if (xlsx.saveAs(fileName)) return MSG_OK;
     return MSG_ERR13;
 }
