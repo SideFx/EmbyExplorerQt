@@ -1,17 +1,17 @@
 <RCC>
-    <qresource prefix="/tb">
-        <file>assets/toolbar_details.svg</file>
-        <file>assets/toolbar_export.svg</file>
-        <file>assets/toolbar_fetch.svg</file>
-        <file>assets/toolbar_login.svg</file>
-        <file>assets/toolbar_preferences.svg</file>
-        <file>assets/toolbar_quit.svg</file>
-        <file>assets/toolbar_about.svg</file>
-    </qresource>
     <qresource prefix="/logo">
         <file>assets/embylogo.png</file>
     </qresource>
     <qresource prefix="/window">
         <file>assets/emby.png</file>
+    </qresource>
+    <qresource prefix="/png">
+        <file>assets/tb_about.png</file>
+        <file>assets/tb_details.png</file>
+        <file>assets/tb_export.png</file>
+        <file>assets/tb_fetch.png</file>
+        <file>assets/tb_login.png</file>
+        <file>assets/tb_preferences.png</file>
+        <file>assets/tb_quit.png</file>
     </qresource>
 </RCC>

@@ -108,7 +108,7 @@
   <action name="actionSettings">
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/tb/assets/toolbar_preferences.svg</normaloff>:/tb/assets/toolbar_preferences.svg</iconset>
+     <normaloff>:/png/assets/tb_preferences.png</normaloff>:/png/assets/tb_preferences.png</iconset>
    </property>
    <property name="text">
     <string>Einstellungen</string>
@@ -120,7 +120,7 @@
   <action name="actionQuit">
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/tb/assets/toolbar_quit.svg</normaloff>:/tb/assets/toolbar_quit.svg</iconset>
+     <normaloff>:/png/assets/tb_quit.png</normaloff>:/png/assets/tb_quit.png</iconset>
    </property>
    <property name="text">
     <string>Beenden</string>
@@ -132,7 +132,7 @@
   <action name="actionAboutEmbyExplorer">
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/tb/assets/toolbar_about.svg</normaloff>:/tb/assets/toolbar_about.svg</iconset>
+     <normaloff>:/png/assets/tb_about.png</normaloff>:/png/assets/tb_about.png</iconset>
    </property>
    <property name="text">
     <string>Über Emby Explorer</string>
@@ -141,7 +141,7 @@
   <action name="actionAboutQt">
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/tb/assets/toolbar_about.svg</normaloff>:/tb/assets/toolbar_about.svg</iconset>
+     <normaloff>:/png/assets/tb_about.png</normaloff>:/png/assets/tb_about.png</iconset>
    </property>
    <property name="text">
     <string>Über Qt</string>
@@ -150,7 +150,7 @@
   <action name="actionAuthenticate">
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/tb/assets/toolbar_login.svg</normaloff>:/tb/assets/toolbar_login.svg</iconset>
+     <normaloff>:/png/assets/tb_login.png</normaloff>:/png/assets/tb_login.png</iconset>
    </property>
    <property name="text">
     <string>Anmelden</string>
@@ -168,7 +168,7 @@
   <action name="actionFetch">
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/tb/assets/toolbar_fetch.svg</normaloff>:/tb/assets/toolbar_fetch.svg</iconset>
+     <normaloff>:/png/assets/tb_fetch.png</normaloff>:/png/assets/tb_fetch.png</iconset>
    </property>
    <property name="text">
     <string>Abrufen</string>
@@ -186,7 +186,7 @@
   <action name="actionDetails">
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/tb/assets/toolbar_details.svg</normaloff>:/tb/assets/toolbar_details.svg</iconset>
+     <normaloff>:/png/assets/tb_details.png</normaloff>:/png/assets/tb_details.png</iconset>
    </property>
    <property name="text">
     <string>Details</string>
@@ -204,7 +204,7 @@
   <action name="actionExport">
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/tb/assets/toolbar_export.svg</normaloff>:/tb/assets/toolbar_export.svg</iconset>
+     <normaloff>:/png/assets/tb_export.png</normaloff>:/png/assets/tb_export.png</iconset>
    </property>
    <property name="text">
     <string>Export</string>
