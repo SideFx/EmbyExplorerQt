@@ -5,7 +5,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include <QStandardPaths>
-#include <QSettings>
+#include "jbpreferences.h"
 #include <QHeaderView>
 #include <QFileDialog>
 
@@ -298,54 +298,56 @@ void MainWindow::initTableView(QString collectionType) {
     adjustTableView();
 }
 
-
 bool MainWindow::checkSettings() {
     return !embySettings.address.isEmpty() && !embySettings.port.isEmpty() &&
            !embySettings.username.isEmpty() && !embySettings.password.isEmpty();
 }
 
 void MainWindow::saveSettings() {
-    QSettings settings(SET_COMPANY, APP_NAMEQT);
-    settings.setDefaultFormat(QSettings::NativeFormat);
-    settings.setValue(SET_WGEOMETRY, saveGeometry());
-    settings.setValue(SET_WSTATE, saveState());
-    settings.setValue(SET_EMBYHTTPS, embySettings.https);
-    settings.setValue(SET_EMBYADDRESS, embySettings.address);
-    settings.setValue(SET_EMBYPORT, embySettings.port);
-    settings.setValue(SET_EMBYUSERNAME, embySettings.username);
-    settings.setValue(SET_EMBYPASSWORD, embySettings.password);
-    settings.setValue(SET_COLLMAXACTORS, embySettings.maxactors);
-    settings.setValue(SET_COLLMAXDIRECTORS, embySettings.maxdirectors);
-    settings.setValue(SET_COLLMAXSTUDIOS, embySettings.maxstudios);
-    settings.setValue(SET_COLLMAXGENRES, embySettings.maxgenres);
-    settings.setValue(SET_OPTIONSFONT, embySettings.font);
+    JBPreferences *prefs = new JBPreferences();
+    prefs->PushArray(SET_WGEOMETRY, saveGeometry());
+    prefs->PushArray(SET_WSTATE, saveState(0));
+    prefs->PushBoolean(SET_EMBYHTTPS, embySettings.https);
+    prefs->PushString(SET_EMBYADDRESS, embySettings.address);
+    prefs->PushString(SET_EMBYPORT, embySettings.port);
+    prefs->PushString(SET_EMBYUSERNAME, embySettings.username);
+    prefs->PushString(SET_EMBYPASSWORD, embySettings.password);
+    prefs->PushNumber(SET_COLLMAXACTORS, embySettings.maxactors);
+    prefs->PushNumber(SET_COLLMAXDIRECTORS, embySettings.maxdirectors);
+    prefs->PushNumber(SET_COLLMAXSTUDIOS, embySettings.maxstudios);
+    prefs->PushNumber(SET_COLLMAXGENRES, embySettings.maxgenres);
+    prefs->PushString(SET_OPTIONSFONT, embySettings.font);
+    prefs->SavePreferencesToDefaultLocation(SET_COMPANY, APP_NAMEQT);
+    delete prefs;
 }
 
 void MainWindow::loadSettings() {
-    QSettings settings(SET_COMPANY, APP_NAMEQT);
-    settings.setDefaultFormat(QSettings::NativeFormat);
-    restoreGeometry(settings.value(SET_WGEOMETRY).toByteArray());
-    restoreState(settings.value(SET_WSTATE).toByteArray());
-    embySettings = {
-        .https = settings.value(SET_EMBYHTTPS).toBool(),
-        .address = settings.value(SET_EMBYADDRESS).toString(),
-        .port = settings.value(SET_EMBYPORT).toString(),
-        .username = settings.value(SET_EMBYUSERNAME).toString(),
-        .password = settings.value(SET_EMBYPASSWORD).toString(),
-        .maxactors = settings.value(SET_COLLMAXACTORS).toInt(),
-        .maxdirectors = settings.value(SET_COLLMAXDIRECTORS).toInt(),
-        .maxstudios = settings.value(SET_COLLMAXSTUDIOS).toInt(),
-        .maxgenres = settings.value(SET_COLLMAXGENRES).toInt()
-    };
-    try {
-        QFont font;
-        embySettings.font = settings.value(SET_OPTIONSFONT).toString();
-        if (!embySettings.font.isEmpty()) {
-            font.fromString(embySettings.font);
-            ui->tableView->setFont(font);
+    JBPreferences *prefs = new JBPreferences();
+    if (prefs->LoadPreferencesFromDefaultLocation(SET_COMPANY, APP_NAMEQT)) {
+        restoreGeometry(prefs->PopArray(SET_WGEOMETRY));
+        restoreState(prefs->PopArray(SET_WSTATE));
+        embySettings = {
+            .https = prefs->PopBoolean(SET_EMBYHTTPS),
+            .address = prefs->PopString(SET_EMBYADDRESS),
+            .port = prefs->PopString(SET_EMBYPORT),
+            .username = prefs->PopString(SET_EMBYUSERNAME),
+            .password = prefs->PopString(SET_EMBYPASSWORD),
+            .maxactors = static_cast<int>(prefs->PopNumber(SET_COLLMAXACTORS)),
+            .maxdirectors = static_cast<int>(prefs->PopNumber(SET_COLLMAXDIRECTORS)),
+            .maxstudios = static_cast<int>(prefs->PopNumber(SET_COLLMAXSTUDIOS)),
+            .maxgenres = static_cast<int>(prefs->PopNumber(SET_COLLMAXGENRES))
+        };
+        try {
+            QFont font;
+            embySettings.font = prefs->PopString(SET_OPTIONSFONT);
+            if (!embySettings.font.isEmpty()) {
+                font.fromString(embySettings.font);
+                ui->tableView->setFont(font);
+            }
         }
+        catch (...) {}
     }
-    catch (...) {}
+    delete prefs;
 }
 
 void MainWindow::adjustTableView() {
