@@ -17,6 +17,9 @@ Credits go to:
 Daniel Nicoletti (dantti) and Jay Two (j2Doll) for "QXlsx": https://github.com/QtExcel/QXlsx
 
 
+On MacOS Sequoia the app needs network access granted. (First logon to Emby server may fail.)
+
+
 
 
 
