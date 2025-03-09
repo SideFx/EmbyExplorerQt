@@ -14,6 +14,7 @@ class Dispatcher : public QObject {
 public:
     explicit Dispatcher(QObject *parent = nullptr);
     ~Dispatcher();
+    bool EmbyCheckHost(embySettings settings);
     int EmbyAuthenticate(embySettings settings);
     QVector<UserCollectionType> EmbyGetCollections();
     QVector<QVariant> EmbyGetCollectionData(QString collectionId, QString collectionType);

@@ -16,6 +16,14 @@ Dispatcher::Dispatcher(QObject *parent) : QObject{parent} {
 
 Dispatcher::~Dispatcher() {}
 
+// MacOS Sequoia: This should trigger the grant network access popup
+bool Dispatcher::EmbyCheckHost(embySettings settings) {
+    QTcpSocket socket;
+    socket.connectToHost(settings.address, settings.port.toInt());
+    if (!socket.waitForConnected(5000)) return false;
+    return true;
+}
+
 int Dispatcher::EmbyAuthenticate(embySettings settings) {
     int returnCode = MSG_OK;
     restParameters para = {};

@@ -44,6 +44,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     exp = new Export(ui->tableView);
     loadSettings();
     showSplashScreen();
+    if(checkSettings()) dis->EmbyCheckHost(embySettings);
 }
 
 MainWindow::~MainWindow() {
@@ -70,6 +71,9 @@ void MainWindow::onActionSettings() {
             }
             catch (...) {}
         }
+        if(checkSettings()) {
+            if (!dis->EmbyCheckHost(embySettings)) messageDialog.showMessage(this, MSG_ERR14);
+        }
     }
 }
 
@@ -85,8 +89,10 @@ void MainWindow::onCollectionChanged(int i) {
 }
 
 void MainWindow::onActionAuthenticate() {
+    int result;
     if(checkSettings()) {
-        int result = dis->EmbyAuthenticate(embySettings);
+        if (dis->EmbyCheckHost(embySettings)) result = dis->EmbyAuthenticate(embySettings);
+        else result = MSG_ERR14;
         if (result == MSG_OK) {
             cbxCollection->clear();
             collections = dis->EmbyGetCollections();

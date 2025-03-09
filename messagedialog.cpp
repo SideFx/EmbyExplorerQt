@@ -23,6 +23,10 @@ MessageDialog::MessageDialog(QObject *parent) : QObject{parent} {
          .msgNumber = MSG_ERR13,
          .msgString = tr("Fehler beim Speichern der Excel Datei.")};
     messages.append(m);
+    m = {
+         .msgNumber = MSG_ERR14,
+         .msgString = tr("Es konnte keine Verbindung zum Emby Server hergestellt werden.")};
+    messages.append(m);
 }
 
 MessageDialog::~MessageDialog() {}
