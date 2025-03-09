@@ -43,7 +43,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     dis = new Dispatcher;
     exp = new Export(ui->tableView);
     loadSettings();
-    if (checkSettings()) dis->EmbyCheckHost(embySettings);
     showSplashScreen();
 }
 
@@ -72,7 +71,6 @@ void MainWindow::onActionSettings() {
             }
             catch (...) {}
         }
-        if (checkSettings()) dis->EmbyCheckHost(embySettings);
     }
 }
 
