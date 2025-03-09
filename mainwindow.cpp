@@ -54,7 +54,6 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::onActionQuit() {
-    saveSettings();
     close();
 }
 
@@ -245,6 +244,11 @@ void MainWindow::onActionAboutQt(){
 void MainWindow::resizeEvent(QResizeEvent *e) {
     if (splashDialog.isVisible()) centerDialog(splashDialog);
     else if (detailsDialog.isVisible()) centerDialog(detailsDialog);
+}
+
+void MainWindow::closeEvent(QCloseEvent *e) {
+    saveSettings();
+    e->accept();
 }
 
 void MainWindow::onItemSelectionChanged() {

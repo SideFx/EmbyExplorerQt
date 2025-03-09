@@ -6,6 +6,7 @@
 #include <QMainWindow>
 #include <QComboBox>
 #include <QTableView>
+#include <QCloseEvent>
 #include "preferencesdialog.h"
 #include "detailsdialog.h"
 #include "dispatcher.h"
@@ -46,6 +47,7 @@ private:
     QVector<UserCollectionType> collections;
     QVector<DetailsDataType> detailsBuffer;
     bool detailsVisible;
+    void closeEvent(QCloseEvent *e);
     void resizeEvent(QResizeEvent *e);
     void centerDialog(QDialog& dlg);
     QString const FILE_FILTER = tr("Excel Arbeitsmappe (*.xlsx)");

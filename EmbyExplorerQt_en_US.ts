@@ -253,7 +253,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation>Export to Excel file</translation>
     </message>
     <message>
-        <location filename="mainwindow.h" line="51"/>
+        <location filename="mainwindow.h" line="53"/>
         <source>Excel Arbeitsmappe (*.xlsx)</source>
         <translation>Excel Worksheet (*xlsx)</translation>
     </message>
