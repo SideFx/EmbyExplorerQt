@@ -8,7 +8,6 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <qeventloop.h>
 
 Dispatcher::Dispatcher(QObject *parent) : QObject{parent} {
     buildDataTypesOutline();

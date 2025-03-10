@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     #elif defined(Q_OS_MAC)
         a.setStyle(QStyleFactory::create("fusion"));
     #endif
-    if (QLocale::system().name().startsWith("en_", Qt::CaseSensitive)) {
+    if (!QLocale::system().name().startsWith("de_", Qt::CaseSensitive)) {
         QTranslator translator;
         if (translator.load("EmbyExplorerQt_en_US.qm")) a.installTranslator(&translator);
     }
