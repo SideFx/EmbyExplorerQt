@@ -532,6 +532,6 @@ QVector<ColumnsType> Dispatcher::getColumns(QString collectionType) {
 }
 
 QString Dispatcher::appendItem(QString source, QString append) {
-    return source.isEmpty() ? append : source + append;
+    return source.isEmpty() ? append : source + ", " + append;
 }
 
