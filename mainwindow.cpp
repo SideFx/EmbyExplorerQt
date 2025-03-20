@@ -303,6 +303,10 @@ void MainWindow::initTableView(QString collectionType) {
     // disable sorting for TV shows
     ui->tableView->setSortingEnabled(collectionType != COLLECTION_TVSHOWS);
     ui->tableView->horizontalHeader()->setSortIndicatorShown(collectionType != COLLECTION_TVSHOWS);
+    ui->tableView->horizontalHeader()->setHighlightSections(false);
+    QFont fnt = ui->tableView->horizontalHeader()->font();
+    fnt.setBold(true);
+    ui->tableView->horizontalHeader()->setFont(fnt);
     adjustTableView();
 }
 
