@@ -232,22 +232,22 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation>Fetch data from server</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="192"/>
+        <location filename="mainwindow.ui" line="195"/>
         <source>Details</source>
         <translation>Details</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="195"/>
+        <location filename="mainwindow.ui" line="198"/>
         <source>Details anzeigen</source>
         <translation>Show details</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="210"/>
+        <location filename="mainwindow.ui" line="213"/>
         <source>Export</source>
         <translation>Export</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="213"/>
+        <location filename="mainwindow.ui" line="216"/>
         <source>Export in Excel Datei</source>
         <translation>Export to Excel file</translation>
     </message>

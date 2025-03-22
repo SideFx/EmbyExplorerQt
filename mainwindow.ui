@@ -184,6 +184,9 @@
    </property>
   </action>
   <action name="actionDetails">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="resource.qrc">
      <normaloff>:/png/assets/tb_details.png</normaloff>:/png/assets/tb_details.png</iconset>
