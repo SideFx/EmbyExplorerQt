@@ -5,6 +5,7 @@
 #pragma once
 #include <QMainWindow>
 #include <QComboBox>
+#include <QLabel>
 #include <QTableView>
 #include <QCloseEvent>
 #include "preferencesdialog.h"
@@ -42,6 +43,7 @@ private:
     DetailsDialog detailsDialog;
     embySettings embySettings;
     QComboBox *cbxCollection;
+    QLabel *lblStatistics;
     Dispatcher *dis;
     Export *exp;
     QVector<UserCollectionType> collections;
@@ -54,6 +56,10 @@ private:
     MessageDialog messageDialog;
     AboutDialog aboutDialog;
 
+    QString const CAP_MOVIES_STATS = tr("Filme: %1");
+    QString const CAP_SERIES_STATS = tr("Serien: %1, Episoden: %2");
+    QString const CAP_VIDEOS_STATS = tr("Videos: %1");
+
 private slots:
     void onActionQuit();
     void onActionSettings();
@@ -62,7 +68,6 @@ private slots:
     void onActionDetails();
     void onActionExport();
     void onActionAboutEmbyExplorer();
-    void onActionAboutQt();
     void onCollectionChanged(int);
     void onItemSelectionChanged();  
 

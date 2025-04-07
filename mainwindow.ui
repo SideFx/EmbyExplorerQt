@@ -79,7 +79,6 @@
      <string>Hilfe</string>
     </property>
     <addaction name="actionAboutEmbyExplorer"/>
-    <addaction name="actionAboutQt"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuHelp"/>
@@ -136,15 +135,6 @@
    </property>
    <property name="text">
     <string>Über Emby Explorer</string>
-   </property>
-  </action>
-  <action name="actionAboutQt">
-   <property name="icon">
-    <iconset resource="resource.qrc">
-     <normaloff>:/png/assets/tb_about.png</normaloff>:/png/assets/tb_about.png</iconset>
-   </property>
-   <property name="text">
-    <string>Über Qt</string>
    </property>
   </action>
   <action name="actionAuthenticate">

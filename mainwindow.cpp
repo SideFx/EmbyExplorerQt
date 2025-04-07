@@ -25,6 +25,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->toolBar->addSeparator();
     ui->toolBar->addAction(ui->actionAboutEmbyExplorer);
     ui->toolBar->addAction(ui->actionQuit);
+    lblStatistics = new QLabel;
+    ui->toolBar->addSeparator();
+    ui->toolBar->addWidget(lblStatistics);
     setCentralWidget(ui->tableView);
     ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -36,10 +39,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     QObject::connect(ui->actionDetails, SIGNAL(triggered()), this, SLOT(onActionDetails()));
     QObject::connect(ui->actionExport, SIGNAL(triggered()), this, SLOT(onActionExport()));
     QObject::connect(ui->actionAboutEmbyExplorer, SIGNAL(triggered()), this, SLOT(onActionAboutEmbyExplorer()));
-    QObject::connect(ui->actionAboutQt, SIGNAL(triggered()), this, SLOT(onActionAboutQt()));
     QObject::connect(cbxCollection, SIGNAL(currentIndexChanged(int)), this, SLOT(onCollectionChanged(int)));
     QObject::connect(ui->tableView, SIGNAL(itemSelectionChanged()), this, SLOT(onItemSelectionChanged()));
     detailsVisible = false;
+    ui->actionDetails->setEnabled(false);
+    ui->actionExport->setEnabled(false);
     dis = new Dispatcher;
     exp = new Export(ui->tableView);
     loadSettings();
@@ -81,10 +85,14 @@ void MainWindow::onCollectionChanged(int i) {
     if(i >= 0) {
         UserCollectionType coll = collections[i];
         initTableView(coll.CollectionType);
+        lblStatistics->clear();
         if (detailsVisible) {
             detailsVisible = false;
             detailsDialog.hide();
         }
+        ui->actionDetails->setChecked(false);
+        ui->actionDetails->setEnabled(false);
+        ui->actionExport->setEnabled(false);
     }
 }
 
@@ -113,6 +121,8 @@ void MainWindow::onActionAuthenticate() {
 void MainWindow::onActionFetch() {
     int i = 0; int j;
     QString id, id2;
+    int cnt_movies = 0, cnt_series = 0, cnt_episodes = 0, cnt_videos = 0;
+    QString stats = "";
     DetailsDataType o;
     if (cbxCollection->currentIndex() >= 0) {
         UserCollectionType coll = collections[cbxCollection->currentIndex()];
@@ -135,12 +145,14 @@ void MainWindow::onActionFetch() {
                 ui->tableView->setItem(i, j++, new QTableWidgetItem(m.Container));
                 ui->tableView->setItem(i, j++, new QTableWidgetItem(m.Codecs));
                 ui->tableView->setItem(i, j++, new QTableWidgetItem(m.Resolution));
+                ui->tableView->setItem(i, j++, new QTableWidgetItem(m.DateCreated));
                 ui->tableView->setItem(i, j++, new QTableWidgetItem(m.FileName));
                 o = {
                     .ItemId = m.MovieId,
                     .ItemId2 = m.MovieId,
                     .Overview = m.Overview
                 };
+                cnt_movies++;
                 detailsBuffer.append(o);
             }
             else if (coll.CollectionType == COLLECTION_TVSHOWS) {
@@ -148,9 +160,11 @@ void MainWindow::onActionFetch() {
                 if (s.TypeKind == TYPEKIND_EPISODE) {
                     id = s.EpisodeId;
                     id2 = s.SeasonId;
-                } else {
+                    cnt_episodes++;
+                } else if (s.TypeKind == TYPEKIND_SERIES) {
                     id = s.SeriesId;
                     id2 = s.SeriesId;
+                    cnt_series++;
                 }
                 ui->tableView->setItem(i, j++, new QTableWidgetItem(id));
                 ui->tableView->setItem(i, j++, new QTableWidgetItem(s.Name));
@@ -164,6 +178,7 @@ void MainWindow::onActionFetch() {
                 ui->tableView->setItem(i, j++, new QTableWidgetItem(s.Container));
                 ui->tableView->setItem(i, j++, new QTableWidgetItem(s.Codecs));
                 ui->tableView->setItem(i, j++, new QTableWidgetItem(s.Resolution));
+                ui->tableView->setItem(i, j++, new QTableWidgetItem(s.DateCreated));
                 ui->tableView->setItem(i, j++, new QTableWidgetItem(s.FileName));
                 o = {
                     .ItemId = id,
@@ -174,7 +189,10 @@ void MainWindow::onActionFetch() {
             }
             else if (coll.CollectionType == COLLECTION_HOMEVIDEOS) {
                 VideoDataType v = data.value<VideoDataType>();
-                if (v.TypeKind == TYPEKIND_VIDEO) id = v.VideoId;
+                if (v.TypeKind == TYPEKIND_VIDEO) {
+                    id = v.VideoId;
+                    cnt_videos++;
+                }
                 else if (v.TypeKind == TYPEKIND_FOLDER) id = v.FolderId;
                 ui->tableView->setItem(i, j++, new QTableWidgetItem(id));
                 ui->tableView->setItem(i, j++, new QTableWidgetItem(v.Name));
@@ -183,24 +201,31 @@ void MainWindow::onActionFetch() {
                 ui->tableView->setItem(i, j++, new QTableWidgetItem(v.Container));
                 ui->tableView->setItem(i, j++, new QTableWidgetItem(v.Codecs));
                 ui->tableView->setItem(i, j++, new QTableWidgetItem(v.Resolution));
+                ui->tableView->setItem(i, j++, new QTableWidgetItem(v.DateCreated));
                 ui->tableView->setItem(i, j++, new QTableWidgetItem(v.FileName));
             }
             i++;
         }
         adjustTableView();
+        if (coll.CollectionType == COLLECTION_MOVIES) {
+            if (cnt_movies > 0) stats = QString(CAP_MOVIES_STATS).arg(cnt_movies);
+        } else if (coll.CollectionType == COLLECTION_TVSHOWS) {
+            if (cnt_series > 0) stats = QString(CAP_SERIES_STATS).arg(cnt_series).arg(cnt_episodes);
+        } else if (coll.CollectionType == COLLECTION_HOMEVIDEOS) {
+            if (cnt_videos > 0) stats = QString(CAP_VIDEOS_STATS).arg(cnt_videos);
+        }
+        lblStatistics->setText(stats);
+        if (ui->tableView->children().count() > 0) {
+            ui->tableView->selectRow(0);
+            ui->actionDetails->setEnabled(coll.CollectionType != COLLECTION_HOMEVIDEOS);
+            ui->actionExport->setEnabled(true);
+        }
     }
 }
 
 void MainWindow::onActionDetails() {
     if (cbxCollection->currentIndex() >= 0) {
         UserCollectionType coll = collections[cbxCollection->currentIndex()];
-        if (coll.CollectionType == COLLECTION_HOMEVIDEOS) { // no details for home videos
-            if (detailsVisible) {
-                detailsVisible = false;
-                detailsDialog.hide();
-            }
-            return;
-        }
         detailsVisible = !detailsVisible;
         if (detailsVisible) displayDetails(); else detailsDialog.hide();
     }
@@ -241,10 +266,6 @@ void MainWindow::onActionExport() {
 
 void MainWindow::onActionAboutEmbyExplorer() {
     aboutDialog.show();
-}
-
-void MainWindow::onActionAboutQt(){
-    QApplication::aboutQt();
 }
 
 void MainWindow::resizeEvent(QResizeEvent *e) {

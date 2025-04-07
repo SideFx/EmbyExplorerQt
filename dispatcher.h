@@ -50,6 +50,7 @@ public:
     QString evalJsonGenreData(QJsonArray genreArray, int maxItems);
     QString evalJsonMediaSourceData(QJsonArray mediasourceArray);
     QString evalJsonResolutionData(QJsonValue value);
+    QString evalJsonCreatedAtData(QJsonValue value);
     QVector<QVariant> sortMovieData(MovieDataTable tm);
     QVector<QVariant> sortSeriesData(SeriesDataTable ts);
     QVector<QVariant> sortVideoData(VideoDataTable tv);
@@ -103,6 +104,7 @@ public:
     QString const CAP_SEASON = tr("Staffel");
     QString const CAP_EPISODE = tr("Episode");
     QString const CAP_FOLDER = tr("Ordner");
+    QString const CAP_DATECREATED = tr("Hinzugefügt am");
 
     QVector<DataType> dataTypes = {};
 

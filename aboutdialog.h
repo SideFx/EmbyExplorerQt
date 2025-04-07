@@ -18,5 +18,11 @@ public:
 
 private:
     Ui::AboutDialog *ui;
+
+    QString const about_1 = "(w) 2024 - 2025 Jan Buchholz";
+    QString const about_2 = tr("Danksagung an:\nDaniel Nicoletti (dantti) und Jay Two (j2Doll) für \"QXlsx\"\n" \
+                            "https://github.com/QtExcel/QXlsx\n&\n" \
+                            "Dazzle-UI für die \"Dazzle-UI\" SVG Icons");
+    QString const about_3 = tr("Erstellt mit Qt Community Edition v");
 };
 

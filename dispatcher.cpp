@@ -199,6 +199,7 @@ MovieDataType Dispatcher::evalMovieJsonData(QJsonValue value) {
     m.Runtime = evalRuntimeTicks(ticks);
     m.FileName = value["FileName"].toString(); 
     m.Overview = value["Overview"].toString();
+    m.DateCreated = evalJsonCreatedAtData(value["DateCreated"]);
     return m;
 }
 
@@ -223,6 +224,7 @@ SeriesDataType Dispatcher::evalSeriesJsonData(QJsonValue value) {
         QJsonArray mediasourceArray = value["MediaSources"].toArray();
         s.Codecs = evalJsonMediaSourceData(mediasourceArray);
         s.Overview = value["Overview"].toString();
+        s.DateCreated = evalJsonCreatedAtData(value["DateCreated"]);
     }
     else if (s.TypeKind == TYPEKIND_SEASON) {
         s.Season = value["Name"].toString();
@@ -257,6 +259,7 @@ VideoDataType Dispatcher::evalVideoJsonData(QJsonValue value) {
         v.Codecs = evalJsonMediaSourceData(mediasourceArray);
         v.ParentId = value["ParentId"].toString();
         v.FileName = value["FileName"].toString();
+        v.DateCreated = evalJsonCreatedAtData(value["DateCreated"]);
     }
     else if (v.TypeKind == TYPEKIND_FOLDER) {
         v.FolderId = value["Id"].toString();
@@ -465,12 +468,20 @@ QString Dispatcher::evalRuntimeTicks(qint64 ticks) {
     return s;
 }
 
+QString Dispatcher::evalJsonCreatedAtData(QJsonValue value) {
+    QString tmp = value.toString();
+    int t = tmp.indexOf("T");
+    if (t > 0) {
+        return tmp.first(t);
+    } else return "";
+}
+
 void Dispatcher::buildDataTypesOutline() {
     DataType d;
     d.CollectionType = COLLECTION_MOVIES;
     d.APIFields = QString("Name,OriginalTitle,MediaSources,FileName,Genres,") +
                   QString("ProductionYear,People,Studios,Width,Height,Container,") +
-                  QString("Overview,RunTimeTicks,Type");
+                  QString("DateCreated,Overview,RunTimeTicks,Type");
     d.Columns = {
         {CAP_TITLE, 70, "A"},
         {CAP_ORIGINALTITLE, 70, "B"},
@@ -483,11 +494,12 @@ void Dispatcher::buildDataTypesOutline() {
         {CAP_EXTENSION, 10, "I"},
         {CAP_CODEC, 12, "J"},
         {CAP_RESOLUTION, 15, "K"},
-        {CAP_FILENAME, 70, "L"}
+        {CAP_DATECREATED, 20, "L"},
+        {CAP_FILENAME, 70, "M"}
     };
     dataTypes.append(d);
     d.CollectionType = COLLECTION_TVSHOWS;
-    d.APIFields = QString("Name,MediaSources,Genres,ProductionYear,People,") +
+    d.APIFields = QString("Name,DateCreated,MediaSources,Genres,ProductionYear,People,") +
                   QString("Studios,Width,Height,Container,RunTimeTicks,FileName,") +
                   QString("Overview,SeriesId,SeasonId,Id,ParentId,IndexNumber,Type");
     d.Columns = {
@@ -502,12 +514,13 @@ void Dispatcher::buildDataTypesOutline() {
         {CAP_EXTENSION, 10, "I"},
         {CAP_CODEC, 12, "J"},
         {CAP_RESOLUTION, 15, "K"},
-        {CAP_FILENAME, 70, "L"}
+        {CAP_DATECREATED, 20, "L"},
+        {CAP_FILENAME, 70, "M"}
     };
     dataTypes.append(d);
     d.CollectionType = COLLECTION_HOMEVIDEOS;
     d.APIFields = QString("Name,MediaSources,Width,Height,Container,RunTimeTicks,") +
-                  QString("FileName,ParentId,Type");
+                  QString("DateCreated,FileName,ParentId,Type");
     d.Columns = {
         {CAP_TITLE, 70, "A"},
         {CAP_FOLDER, 30, "B"},
@@ -515,7 +528,8 @@ void Dispatcher::buildDataTypesOutline() {
         {CAP_EXTENSION, 10, "D"},
         {CAP_CODEC, 12, "E"},
         {CAP_RESOLUTION, 15, "F"},
-        {CAP_FILENAME, 70, "G"}
+        {CAP_DATECREATED, 20, "G"},
+        {CAP_FILENAME, 70, "H"}
     };
     dataTypes.append(d);
 }

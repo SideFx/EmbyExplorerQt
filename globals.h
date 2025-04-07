@@ -9,7 +9,7 @@
 #define EMBY_PORT "8096"
 
 #define APP_NAME "Emby Explorer (Qt)"
-#define APP_VERSION "v1.1"
+#define APP_VERSION "v1.2"
 #define APP_NAMEQT "EmbyExplorerQt"
 #define SET_COMPANY "org.jan.buchholz"
 #define SET_WGEOMETRY "mainwindow-geometry"
@@ -96,6 +96,7 @@ typedef struct {
     QString Container;
     QString Codecs;
     QString Resolution;
+    QString DateCreated;
     QString FileName;
     QString Overview;
     QString MovieId;
@@ -117,6 +118,7 @@ typedef struct {
     QString Container;
     QString Codecs;
     QString Resolution;
+    QString DateCreated;
     QString FileName;
     QString Overview;
     QString SeriesId;
@@ -136,6 +138,7 @@ typedef struct {
     QString Container;
     QString Codecs;
     QString Resolution;
+    QString DateCreated;
     QString FileName;
     QString FolderId;
     QString ParentId;
