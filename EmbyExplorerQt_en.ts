@@ -201,38 +201,38 @@ Dazzle-UI for the &quot;Dazzle-UI&quot; SVG icons</translation>
         <translation>MainWindow</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="73"/>
+        <location filename="mainwindow.ui" line="76"/>
         <source>Datei</source>
         <translation>File</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="79"/>
+        <location filename="mainwindow.ui" line="82"/>
         <source>Hilfe</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="95"/>
+        <location filename="mainwindow.ui" line="98"/>
         <source>toolBar</source>
         <translation>toolBar</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="128"/>
         <location filename="mainwindow.ui" line="131"/>
+        <location filename="mainwindow.ui" line="134"/>
         <source>Einstellungen</source>
         <translation>Preferences</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="140"/>
+        <location filename="mainwindow.ui" line="143"/>
         <source>Beenden</source>
         <translation>Quit</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="143"/>
+        <location filename="mainwindow.ui" line="146"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="152"/>
+        <location filename="mainwindow.ui" line="155"/>
         <source>Über Emby Explorer</source>
         <translation>About Emby Explorer</translation>
     </message>
@@ -241,42 +241,42 @@ Dazzle-UI for the &quot;Dazzle-UI&quot; SVG icons</translation>
         <translation type="vanished">About Qt</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="161"/>
+        <location filename="mainwindow.ui" line="164"/>
         <source>Anmelden</source>
         <translation>Login</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="164"/>
+        <location filename="mainwindow.ui" line="167"/>
         <source>Am Emby Server anmelden</source>
         <translation>Login to Emby server</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="179"/>
+        <location filename="mainwindow.ui" line="182"/>
         <source>Abrufen</source>
         <translation>Fetch</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="182"/>
+        <location filename="mainwindow.ui" line="185"/>
         <source>Daten vom Server abrufen</source>
         <translation>Fetch data from server</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="200"/>
+        <location filename="mainwindow.ui" line="203"/>
         <source>Details</source>
         <translation>Details</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="203"/>
+        <location filename="mainwindow.ui" line="206"/>
         <source>Details anzeigen</source>
         <translation>Show details</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="218"/>
+        <location filename="mainwindow.ui" line="221"/>
         <source>Export</source>
         <translation>Export</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="221"/>
+        <location filename="mainwindow.ui" line="224"/>
         <source>Export in Excel Datei</source>
         <translation>Export to Excel file</translation>
     </message>
