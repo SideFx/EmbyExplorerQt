@@ -9,7 +9,7 @@
 #define EMBY_PORT "8096"
 
 #define APP_NAME "Emby Explorer (Qt)"
-#define APP_VERSION "v1.2"
+#define APP_VERSION "v1.3"
 #define APP_NAMEQT "EmbyExplorerQt"
 #define SET_COMPANY "org.jan.buchholz"
 #define SET_WGEOMETRY "mainwindow-geometry"
