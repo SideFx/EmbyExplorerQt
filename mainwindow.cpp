@@ -8,9 +8,35 @@
 #include "jbpreferences.h"
 #include <QHeaderView>
 #include <QFileDialog>
+#include <QToolBar>
+#include <QToolButton>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
+#if defined(Q_OS_MAC) //20250920: fix for broken QToolButton style on MacOS
+    QString styleToolButton = R"(
+        QToolBar > QToolButton {
+            border-radius: 3px;
+            padding: 2px 2px;
+        }
+        QToolBar > QToolButton:hover {
+            background-color: darkGray;
+            border-color: auto;
+        }
+        QToolBar > QToolButton:pressed {
+            background-color: gray;
+            border-color: auto;
+        }
+        QToolBar > QToolButton:checked {
+            background-color: gray;
+            border-color: auto;
+        }
+    )";
+    ui->toolBar->setStyleSheet(styleToolButton);
+#endif
+#if defined(Q_OS_MAC) //20250918: hide status bar on MacOS
+    ui->statusBar->setVisible(false);
+#endif
     setWindowTitle(QString(APP_NAME) + " " + QString(APP_VERSION));
     ui->toolBar->addAction(ui->actionSettings);
     ui->toolBar->addAction(ui->actionAuthenticate);

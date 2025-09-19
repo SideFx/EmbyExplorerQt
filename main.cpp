@@ -10,16 +10,19 @@
 
 int main(int argc, char *argv[])
 {
+    QString i18nPath = "";
+    bool load = false;
     QApplication a(argc, argv);
-    #if defined(Q_OS_WIN)
-        a.setStyle(QStyleFactory::create("windowsvista"));
-    #elif defined(Q_OS_MAC)
-        a.setStyle(QStyleFactory::create("fusion"));
-    #endif
-    if (!QLocale::system().name().startsWith("de_", Qt::CaseSensitive)) {
-        QTranslator translator;
-        if (translator.load("EmbyExplorerQt_en_US.qm")) a.installTranslator(&translator);
-    }
+#if defined (Q_OS_WIN)
+    i18nPath = QCoreApplication::applicationDirPath() + "/i18n/";
+#elif defined (Q_OS_MAC)
+    i18nPath = QCoreApplication::applicationDirPath() + "/../Resources/i18n/";
+#endif
+    QTranslator translator;
+    if (QLocale::system().name().startsWith("de_", Qt::CaseSensitive)) {
+        load = translator.load(i18nPath + "qtbase_de.qm");
+    } else load = translator.load(i18nPath + "EmbyExplorerQt_en.qm");
+    if (load) a.installTranslator(&translator);
     MainWindow w;
     w.show();
     return a.exec();

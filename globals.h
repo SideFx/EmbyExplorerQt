@@ -24,6 +24,7 @@
 #define SET_COLLMAXSTUDIOS "collection-maxstudios"
 #define SET_COLLMAXGENRES "collection-maxgenres"
 #define SET_OPTIONSFONT "options-font"
+#define APP_OPTIONS_EXT ".json"
 
 #define COLLECTION_MOVIES  "movies"
 #define COLLECTION_TVSHOWS "tvshows"

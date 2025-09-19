@@ -12,6 +12,7 @@
 #include <QDir>
 #include <QStandardPaths>
 #include <QApplication>
+#include "globals.h"
 
 JBPreferences::JBPreferences(QObject *parent) : QObject{parent} {
     prefs.clear();
@@ -77,7 +78,7 @@ bool JBPreferences::SavePreferences(QString filePath, QString orgName, QString a
     QJsonDocument doc(jprefs);
     if (!QDir(filePath).exists()) QDir().mkpath(filePath);
     if (!QDir(filePath).exists()) return false;
-    QFile file(filePath + "/" + orgName + "." + appName);
+    QFile file(filePath + "/" + orgName + "." + appName + APP_OPTIONS_EXT);
     b = file.open(QIODevice::WriteOnly);
     if (b) {
         QTextStream out(&file);
@@ -93,7 +94,7 @@ bool JBPreferences::LoadPreferences(QString filePath, QString orgName, QString a
     QJsonDocument doc;
     QJsonParseError err;
     QString data = "";
-    QFile file(filePath + "/" + orgName + "." + appName);
+    QFile file(filePath + "/" + orgName + "." + appName + APP_OPTIONS_EXT);
     if (!file.exists()) return false;
     bool b = file.open(QIODevice::ReadOnly | QIODevice::Text);
     if (b) {

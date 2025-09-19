@@ -12,7 +12,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Network LinguistTools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network LinguistTools)
 
-set(TS_FILES EmbyExplorerQt_en_US.ts)
+set(TS_FILES EmbyExplorerQt_en.ts EmbyExplorerQt_de.ts)
+set (I18N_FILES "${CMAKE_SOURCE_DIR}/qtbase_de.qm"
+                "${CMAKE_BINARY_DIR}/EmbyExplorerQt_en.qm"
+                "${CMAKE_BINARY_DIR}/EmbyExplorerQt_de.qm"
+)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -22,20 +26,21 @@ set(PROJECT_SOURCES
         ${TS_FILES}
 )
 
-qt_add_translations(EmbyExplorerQt TS_FILES EmbyExplorerQt_en_US.ts)
 qt_standard_project_setup(
-    I18N_SOURCE_LANGUAGE de         # optional - this is the default
-    I18N_TRANSLATED_LANGUAGES en
+    I18N_TRANSLATED_LANGUAGES de en
 )
 
 add_subdirectory(QXlsx)
 
 set(MACOSX_BUNDLE_ICON_FILE app.icns)
-set(APP_ICON "${CMAKE_CURRENT_SOURCE_DIR}/app.icns")
+set(APP_ICON "${CMAKE_SOURCE_DIR}/app.icns")
 set_source_files_properties(${APP_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+set_source_files_properties(${I18N_FILES} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources/i18n")
+
+qt_add_translations(EmbyExplorerQt)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/appicon.rc")
+    set(app_icon_resource_windows "${CMAKE_SOURCE_DIR}/appicon.rc")
     qt_add_executable(EmbyExplorerQt
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
@@ -53,11 +58,11 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         export.h export.cpp
         messagedialog.h messagedialog.cpp
         aboutdialog.h aboutdialog.cpp aboutdialog.ui
-        .gitignore
         QXlsx/cmake/modules/CPackConfig.cmake QXlsx/cmake/modules/qxlsx-config-version.cmake.in QXlsx/cmake/modules/qxlsx-config.cmake.in QXlsx/header/xlsxabstractooxmlfile.h QXlsx/header/xlsxabstractooxmlfile_p.h QXlsx/header/xlsxabstractsheet.h QXlsx/header/xlsxabstractsheet_p.h QXlsx/header/xlsxcell.h QXlsx/header/xlsxcell_p.h QXlsx/header/xlsxcellformula.h QXlsx/header/xlsxcellformula_p.h QXlsx/header/xlsxcelllocation.h QXlsx/header/xlsxcellrange.h QXlsx/header/xlsxcellreference.h QXlsx/header/xlsxchart.h QXlsx/header/xlsxchart_p.h QXlsx/header/xlsxchartsheet.h QXlsx/header/xlsxchartsheet_p.h QXlsx/header/xlsxcolor_p.h QXlsx/header/xlsxconditionalformatting.h QXlsx/header/xlsxconditionalformatting_p.h QXlsx/header/xlsxcontenttypes_p.h QXlsx/header/xlsxdatavalidation.h QXlsx/header/xlsxdatavalidation_p.h QXlsx/header/xlsxdatetype.h QXlsx/header/xlsxdocpropsapp_p.h QXlsx/header/xlsxdocpropscore_p.h QXlsx/header/xlsxdocument.h QXlsx/header/xlsxdocument_p.h QXlsx/header/xlsxdrawing_p.h QXlsx/header/xlsxdrawinganchor_p.h QXlsx/header/xlsxformat.h QXlsx/header/xlsxformat_p.h QXlsx/header/xlsxglobal.h QXlsx/header/xlsxmediafile_p.h QXlsx/header/xlsxnumformatparser_p.h QXlsx/header/xlsxrelationships_p.h QXlsx/header/xlsxrichstring.h QXlsx/header/xlsxrichstring_p.h QXlsx/header/xlsxsharedstrings_p.h QXlsx/header/xlsxsimpleooxmlfile_p.h QXlsx/header/xlsxstyles_p.h QXlsx/header/xlsxtheme_p.h QXlsx/header/xlsxutility_p.h QXlsx/header/xlsxworkbook.h QXlsx/header/xlsxworkbook_p.h QXlsx/header/xlsxworksheet.h QXlsx/header/xlsxworksheet_p.h QXlsx/header/xlsxzipreader_p.h QXlsx/header/xlsxzipwriter_p.h QXlsx/source/xlsxabstractooxmlfile.cpp QXlsx/source/xlsxabstractsheet.cpp QXlsx/source/xlsxcell.cpp QXlsx/source/xlsxcellformula.cpp QXlsx/source/xlsxcelllocation.cpp QXlsx/source/xlsxcellrange.cpp QXlsx/source/xlsxcellreference.cpp QXlsx/source/xlsxchart.cpp QXlsx/source/xlsxchartsheet.cpp QXlsx/source/xlsxcolor.cpp QXlsx/source/xlsxconditionalformatting.cpp QXlsx/source/xlsxcontenttypes.cpp QXlsx/source/xlsxdatavalidation.cpp QXlsx/source/xlsxdatetype.cpp QXlsx/source/xlsxdocpropsapp.cpp QXlsx/source/xlsxdocpropscore.cpp QXlsx/source/xlsxdocument.cpp QXlsx/source/xlsxdrawing.cpp QXlsx/source/xlsxdrawinganchor.cpp QXlsx/source/xlsxformat.cpp QXlsx/source/xlsxmediafile.cpp QXlsx/source/xlsxnumformatparser.cpp QXlsx/source/xlsxrelationships.cpp QXlsx/source/xlsxrichstring.cpp QXlsx/source/xlsxsharedstrings.cpp QXlsx/source/xlsxsimpleooxmlfile.cpp QXlsx/source/xlsxstyles.cpp QXlsx/source/xlsxtheme.cpp QXlsx/source/xlsxutility.cpp QXlsx/source/xlsxworkbook.cpp QXlsx/source/xlsxworksheet.cpp QXlsx/source/xlsxzipreader.cpp QXlsx/source/xlsxzipwriter.cpp QXlsx/CMakeLists.txt
         assets/tb_about.png assets/tb_details.png assets/tb_export.png assets/tb_fetch.png assets/tb_login.png assets/tb_preferences.png assets/tb_quit.png
         jbpreferences.cpp jbpreferences.h
         app.icns
+        ${I18N_FILES}
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET EmbyExplorerQt APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
