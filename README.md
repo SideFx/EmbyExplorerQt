@@ -17,7 +17,14 @@ Credits go to:
 Daniel Nicoletti (dantti) and Jay Two (j2Doll) for "QXlsx": https://github.com/QtExcel/QXlsx
 
 
-On MacOS Sequoia the app needs network access granted. (First logon to Emby server may fail.)
+On MacOS Sequoia and above the app needs network access granted. (First logon to Emby server may fail.)
+
+19.September 2025:
+- Fix for broken ToolBar->ToolButton style on MacOS (no hover effect, no click effect)
+- Added ".json" extension to pref file
+- Added qbase_de.qm file (translate MacOS system menu)
+- minor enhancements
+
 
 
 
