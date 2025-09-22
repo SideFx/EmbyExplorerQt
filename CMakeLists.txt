@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(EmbyExplorerQt VERSION 0.1 LANGUAGES CXX)
+project(EmbyExplorerQt VERSION 1.3 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -8,14 +8,15 @@ set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(QT_NO_PRIVATE_MODULE_WARNING ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Network LinguistTools)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network LinguistTools)
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS Gui GuiPrivate Widgets Network LinguistTools)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui GuiPrivate Widgets Network LinguistTools)
 
-set(TS_FILES EmbyExplorerQt_en.ts EmbyExplorerQt_de.ts)
-set (I18N_FILES "${CMAKE_SOURCE_DIR}/qtbase_de.qm"
-                "${CMAKE_BINARY_DIR}/EmbyExplorerQt_en.qm"
-                "${CMAKE_BINARY_DIR}/EmbyExplorerQt_de.qm"
+set(TS_FILES EmbyExplorerQt_en.ts)
+set(I18N_FILES
+    "${CMAKE_BINARY_DIR}/EmbyExplorerQt_en.qm"
+    "${CMAKE_SOURCE_DIR}/qtbase_de.qm"
 )
 
 set(PROJECT_SOURCES
@@ -25,12 +26,8 @@ set(PROJECT_SOURCES
         mainwindow.ui
         ${TS_FILES}
 )
-
-qt_standard_project_setup(
-    I18N_TRANSLATED_LANGUAGES de en
-)
-
-add_subdirectory(QXlsx)
+add_subdirectory("${CMAKE_SOURCE_DIR}/QXlsx")
+qt_standard_project_setup(I18N_TRANSLATED_LANGUAGES en)
 
 set(MACOSX_BUNDLE_ICON_FILE app.icns)
 set(APP_ICON "${CMAKE_SOURCE_DIR}/app.icns")
@@ -63,31 +60,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         jbpreferences.cpp jbpreferences.h
         app.icns
         ${I18N_FILES}
+        qtbase_de.qm
     )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET EmbyExplorerQt APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-
-#qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
-else()
-    if(ANDROID)
-        add_library(EmbyExplorerQt SHARED
-            ${PROJECT_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-        add_executable(EmbyExplorerQt
-            ${PROJECT_SOURCES}
-        )
-    endif()
-
-    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
 add_library(SimpleXlsx STATIC)
-target_link_libraries(EmbyExplorerQt PRIVATE Qt6::Widgets Qt6::Network QXlsx::QXlsx)
+target_link_libraries(EmbyExplorerQt PRIVATE Qt6::GuiPrivate Qt6::Widgets Qt6::Network QXlsx::QXlsx)
 add_dependencies(EmbyExplorerQt update_translations)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -112,6 +90,11 @@ install(TARGETS EmbyExplorerQt
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-if(QT_VERSION_MAJOR EQUAL 6)
+if(QT_VERSION_MAJOR GREATER_EQUAL 6)
     qt_finalize_executable(EmbyExplorerQt)
+endif()
+
+if (WIN32)
+    configure_file("${CMAKE_BINARY_DIR}/EmbyExplorerQt_en.qm" "${CMAKE_BINARY_DIR}/translations" COPYONLY)
+    configure_file("${CMAKE_SOURCE_DIR}/qtbase_de.qm" "${CMAKE_BINARY_DIR}/translations" COPYONLY)
 endif()

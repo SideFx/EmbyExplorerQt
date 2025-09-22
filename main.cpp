@@ -14,9 +14,11 @@ int main(int argc, char *argv[])
     bool load = false;
     QApplication a(argc, argv);
 #if defined (Q_OS_WIN)
-    i18nPath = QCoreApplication::applicationDirPath() + "/i18n/";
+    i18nPath = QCoreApplication::applicationDirPath() + "/translations/";
+    a.setStyle(QStyleFactory::create("fusion"));
 #elif defined (Q_OS_MAC)
     i18nPath = QCoreApplication::applicationDirPath() + "/../Resources/i18n/";
+    a.setStyle(QStyleFactory::create("macos"));
 #endif
     QTranslator translator;
     if (QLocale::system().name().startsWith("de_", Qt::CaseSensitive)) {

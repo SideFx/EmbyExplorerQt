@@ -20,19 +20,47 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
             padding: 2px 2px;
         }
         QToolBar > QToolButton:hover {
-            background-color: darkGray;
+            background-color: lightGray;
             border-color: auto;
         }
         QToolBar > QToolButton:pressed {
-            background-color: gray;
+            background-color: darkGray;
             border-color: auto;
         }
         QToolBar > QToolButton:checked {
-            background-color: gray;
+            background-color: darkGray;
             border-color: auto;
         }
     )";
     ui->toolBar->setStyleSheet(styleToolButton);
+#elif defined(Q_OS_WIN) //20250922 customize fusion style
+    QString styleToolBar = R"(
+        QToolBar {
+            border: 0px;
+            padding: 1px 1px;
+        }
+        QToolBar > QToolButton {
+            border-radius: 3px;
+            padding: 4px 4px;
+            height: 16px;
+            width: 16px;
+            max-width: 16px;
+            max-height: 16px;
+        }
+        QToolBar > QToolButton:hover {
+            background-color: lightGray;
+            border-color: auto;
+        }
+        QToolBar > QToolButton:pressed {
+            background-color: darkGray;
+            border-color: auto;
+        }
+        QToolBar > QToolButton:checked {
+            background-color: darkGray;
+            border-color: auto;
+        }
+    )";
+    ui->toolBar->setStyleSheet(styleToolBar);
 #endif
 #if defined(Q_OS_MAC) //20250918: hide status bar on MacOS
     ui->statusBar->setVisible(false);
