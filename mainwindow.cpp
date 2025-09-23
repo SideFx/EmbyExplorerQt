@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
             padding: 2px 2px;
         }
         QToolBar > QToolButton:hover {
-            background-color: lightGray;
+            background-color: gray;
             border-color: auto;
         }
         QToolBar > QToolButton:pressed {
