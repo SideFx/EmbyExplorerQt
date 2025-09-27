@@ -25,8 +25,9 @@ On MacOS Sequoia and above the app needs network access granted. (First logon to
 - Added qbase_de.qm file (translate MacOS system menu)
 - minor enhancements
 
-27. Septemper 2025:
+27. September 2025:
 - Fixed CMakeLists.txt to copy QM files to target/translations directory (Windows)
+
 
 
 
