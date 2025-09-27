@@ -15,7 +15,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui GuiPrivate Widgets Ne
 
 set(TS_FILES EmbyExplorerQt_en.ts)
 set(I18N_FILES
-    "${CMAKE_BINARY_DIR}/EmbyExplorerQt_en.qm"
+    "${PROJECT_BINARY_DIR}/EmbyExplorerQt_en.qm"
     "${CMAKE_SOURCE_DIR}/qtbase_de.qm"
 )
 
@@ -60,7 +60,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         jbpreferences.cpp jbpreferences.h
         app.icns
         ${I18N_FILES}
-        qtbase_de.qm
     )
 endif()
 
@@ -95,6 +94,28 @@ if(QT_VERSION_MAJOR GREATER_EQUAL 6)
 endif()
 
 if (WIN32)
-    configure_file("${CMAKE_BINARY_DIR}/EmbyExplorerQt_en.qm" "${CMAKE_BINARY_DIR}/translations" COPYONLY)
-    configure_file("${CMAKE_SOURCE_DIR}/qtbase_de.qm" "${CMAKE_BINARY_DIR}/translations" COPYONLY)
+    if(EXISTS "${CMAKE_SOURCE_DIR}/qtbase_de.qm")
+        if (NOT EXISTS "${PROJECT_BINARY_DIR}/translations")
+            add_custom_command(TARGET EmbyExplorerQt POST_BUILD
+                COMMAND "${CMAKE_COMMAND}" -E make_directory "${PROJECT_BINARY_DIR}/translations"
+            )
+        endif()
+        add_custom_command(TARGET EmbyExplorerQt POST_BUILD
+            COMMAND "${CMAKE_COMMAND}" -E copy
+            "${CMAKE_SOURCE_DIR}/qtbase_de.qm"
+            "${PROJECT_BINARY_DIR}/translations"
+        )
+    endif()
+    if(EXISTS "${PROJECT_BINARY_DIR}/EmbyExplorerQt_en.qm")
+        if (NOT EXISTS "${PROJECT_BINARY_DIR}/translations")
+            add_custom_command(TARGET EmbyExplorerQt POST_BUILD
+                COMMAND "${CMAKE_COMMAND}" -E make_directory "${PROJECT_BINARY_DIR}/translations"
+            )
+        endif()
+        add_custom_command(TARGET EmbyExplorerQt POST_BUILD
+            COMMAND "${CMAKE_COMMAND}" -E copy
+            "${PROJECT_BINARY_DIR}/EmbyExplorerQt_en.qm"
+            "${PROJECT_BINARY_DIR}/translations"
+        )
+    endif()
 endif()
