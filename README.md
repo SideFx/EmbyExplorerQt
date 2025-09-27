@@ -19,11 +19,15 @@ Daniel Nicoletti (dantti) and Jay Two (j2Doll) for "QXlsx": https://github.com/Q
 
 On MacOS Sequoia and above the app needs network access granted. (First logon to Emby server may fail.)
 
-19.September 2025:
+19. September 2025:
 - Fix for broken ToolBar->ToolButton style on MacOS (no hover effect, no click effect)
 - Added ".json" extension to pref file
 - Added qbase_de.qm file (translate MacOS system menu)
 - minor enhancements
+
+27. Septemper 2025:
+- Fixed CMakeLists.txt to copy QM files to target/translations directory (Windows)
+
 
 
 
