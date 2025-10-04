@@ -31,7 +31,7 @@ public:
     QFont PopFont(QString key);
 
 private:
-    QVariantMap prefs;
+    QVariantMap m_prefs;
 
 signals:
 };

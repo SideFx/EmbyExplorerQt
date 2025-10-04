@@ -15,7 +15,7 @@
 #include "globals.h"
 
 JBPreferences::JBPreferences(QObject *parent) : QObject{parent} {
-    prefs.clear();
+    m_prefs.clear();
 }
 
 JBPreferences::~JBPreferences() {}
@@ -25,11 +25,11 @@ QString JBPreferences::GetPreferencesDefaultLocation() {
 }
 
 void JBPreferences::PushArray(QString key, QByteArray values) {
-    prefs.insert(key, QString(values.toBase64()));
+    m_prefs.insert(key, QString(values.toBase64()));
 }
 
 void JBPreferences::PushString(QString key, QString value) {
-    prefs.insert(key, QString(value.toUtf8().toBase64()));
+    m_prefs.insert(key, QString(value.toUtf8().toBase64()));
 }
 
 void JBPreferences::PushNumber(QString key, quint64 value) {
@@ -46,9 +46,13 @@ void JBPreferences::PushFont(QString key, QFont font) {
 
 QByteArray JBPreferences::PopArray(QString key) {
     QByteArray ba = {};
-    QString tmp = prefs.find(key).value().toString();
-    if (!tmp.isEmpty()) {
-        ba =  QByteArray::fromBase64(tmp.toUtf8());
+    //20251002
+    for (QVariantMap::iterator iter = m_prefs.begin(); iter != m_prefs.end(); iter++) {
+        if (iter.key() == key) {
+            QString tmp = iter.value().toString();
+            ba =  QByteArray::fromBase64(tmp.toUtf8());
+            break;
+        }
     }
     return ba;
 }
@@ -74,7 +78,7 @@ QFont JBPreferences::PopFont(QString key) {
 
 bool JBPreferences::SavePreferences(QString filePath, QString orgName, QString appName) {
     bool b = false;
-    QJsonObject jprefs = QJsonObject::fromVariantMap(prefs);
+    QJsonObject jprefs = QJsonObject::fromVariantMap(m_prefs);
     QJsonDocument doc(jprefs);
     if (!QDir(filePath).exists()) QDir().mkpath(filePath);
     if (!QDir(filePath).exists()) return false;
@@ -89,7 +93,7 @@ bool JBPreferences::SavePreferences(QString filePath, QString orgName, QString a
 }
 
 bool JBPreferences::LoadPreferences(QString filePath, QString orgName, QString appName) {
-    prefs.clear();
+    m_prefs.clear();
     QJsonObject jprefs;
     QJsonDocument doc;
     QJsonParseError err;
@@ -108,7 +112,7 @@ bool JBPreferences::LoadPreferences(QString filePath, QString orgName, QString a
         b = !doc.isNull();
         if (b) {
             jprefs = doc.object();
-            prefs = jprefs.toVariantMap();
+            m_prefs = jprefs.toVariantMap();
         }
     }
     return b;
