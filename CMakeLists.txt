@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(EmbyExplorerQt VERSION 1.3 LANGUAGES CXX)
+project(EmbyExplorerQt VERSION 1.3.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -10,12 +10,12 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(QT_NO_PRIVATE_MODULE_WARNING ON)
 
-find_package(QT NAMES Qt6 REQUIRED COMPONENTS Gui GuiPrivate Widgets Network LinguistTools)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui GuiPrivate Widgets Network LinguistTools)
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS Gui Widgets Network LinguistTools)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui Widgets Network LinguistTools)
 
 set(TS_FILES EmbyExplorerQt_en.ts)
 set(I18N_FILES
-    "${CMAKE_BINARY_DIR}/EmbyExplorerQt_en.qm"
+    "${CMAKE_SOURCE_DIR}/qtbase_en.qm"
     "${CMAKE_SOURCE_DIR}/qtbase_de.qm"
 )
 
@@ -60,7 +60,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         jbpreferences.cpp jbpreferences.h
         app.icns
         ${I18N_FILES}
-        qtbase_de.qm
+        EmbyExplorerQt_en.qm
+        stylesheets.h
     )
 endif()
 
@@ -68,12 +69,6 @@ add_library(SimpleXlsx STATIC)
 target_link_libraries(EmbyExplorerQt PRIVATE Qt6::GuiPrivate Qt6::Widgets Qt6::Network QXlsx::QXlsx)
 add_dependencies(EmbyExplorerQt update_translations)
 
-# Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
-# If you are developing for iOS or macOS you should consider setting an
-# explicit, fixed bundle identifier manually though.
-if(${QT_VERSION} VERSION_LESS 6.1.0)
-  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.EmbyExplorerQt)
-endif()
 set_target_properties(EmbyExplorerQt PROPERTIES
     ${BUNDLE_ID_OPTION}
     UPDATE_TRANSLATIONS .
@@ -82,6 +77,9 @@ set_target_properties(EmbyExplorerQt PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
+
+#WIN32
+set(TRANSLATION_DIR "${PROJECT_BINARY_DIR}/translations")
 
 include(GNUInstallDirs)
 install(TARGETS EmbyExplorerQt
@@ -95,6 +93,11 @@ if(QT_VERSION_MAJOR GREATER_EQUAL 6)
 endif()
 
 if (WIN32)
-    configure_file("${CMAKE_BINARY_DIR}/EmbyExplorerQt_en.qm" "${CMAKE_BINARY_DIR}/translations" COPYONLY)
-    configure_file("${CMAKE_SOURCE_DIR}/qtbase_de.qm" "${CMAKE_BINARY_DIR}/translations" COPYONLY)
+    add_custom_target(post-build-stuff ALL
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${TRANSLATION_DIR}
+        COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/qtbase_de.qm" ${TRANSLATION_DIR}
+        COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/qtbase_en.qm" ${TRANSLATION_DIR}
+        COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_BINARY_DIR}/EmbyExplorerQt_en.qm" ${TRANSLATION_DIR}
+    )
 endif()
+
