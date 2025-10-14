@@ -1,6 +1,7 @@
 //-----------------------------------------------------------------------------------------------------------
 // Emby Explorer (Qt) (w) 2024-2025 by Jan Buchholz
 // UI - Main window
+// last change: 20251014
 //-----------------------------------------------------------------------------------------------------------
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
@@ -8,61 +9,14 @@
 #include "jbpreferences.h"
 #include <QHeaderView>
 #include <QFileDialog>
-#include <QToolBar>
-#include <QToolButton>
+#include "stylesheets.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
-#if defined(Q_OS_MAC) //20250920: fix for broken QToolButton style on MacOS
-    QString styleToolButton = R"(
-        QToolBar > QToolButton {
-            border-radius: 3px;
-            padding: 2px 2px;
-        }
-        QToolBar > QToolButton:hover {
-            background-color: gray;
-            border-color: auto;
-        }
-        QToolBar > QToolButton:pressed {
-            background-color: darkGray;
-            border-color: auto;
-        }
-        QToolBar > QToolButton:checked {
-            background-color: darkGray;
-            border-color: auto;
-        }
-    )";
-    ui->toolBar->setStyleSheet(styleToolButton);
-#elif defined(Q_OS_WIN) //20250922 customize fusion style
-    QString styleToolBar = R"(
-        QToolBar {
-            border: 0px;
-            padding: 1px 1px;
-        }
-        QToolBar > QToolButton {
-            border-radius: 3px;
-            padding: 4px 4px;
-            height: 16px;
-            width: 16px;
-            max-width: 16px;
-            max-height: 16px;
-        }
-        QToolBar > QToolButton:hover {
-            background-color: lightGray;
-            border-color: auto;
-        }
-        QToolBar > QToolButton:pressed {
-            background-color: darkGray;
-            border-color: auto;
-        }
-        QToolBar > QToolButton:checked {
-            background-color: darkGray;
-            border-color: auto;
-        }
-    )";
+#if defined(Q_OS_WIN)
     ui->toolBar->setStyleSheet(styleToolBar);
-#endif
-#if defined(Q_OS_MAC) //20250918: hide status bar on MacOS
+#elif defined(Q_OS_MAC)
+    ui->toolBar->setStyleSheet(styleToolButton);
     ui->statusBar->setVisible(false);
 #endif
     setWindowTitle(QString(APP_NAME) + " " + QString(APP_VERSION));
@@ -86,15 +40,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    QObject::connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(onActionQuit()));
-    QObject::connect(ui->actionSettings, SIGNAL(triggered()), this, SLOT(onActionSettings()));
-    QObject::connect(ui->actionAuthenticate, SIGNAL(triggered()), this, SLOT(onActionAuthenticate()));
-    QObject::connect(ui->actionFetch, SIGNAL(triggered()), this, SLOT(onActionFetch()));
-    QObject::connect(ui->actionDetails, SIGNAL(triggered()), this, SLOT(onActionDetails()));
-    QObject::connect(ui->actionExport, SIGNAL(triggered()), this, SLOT(onActionExport()));
-    QObject::connect(ui->actionAboutEmbyExplorer, SIGNAL(triggered()), this, SLOT(onActionAboutEmbyExplorer()));
-    QObject::connect(cbxCollection, SIGNAL(currentIndexChanged(int)), this, SLOT(onCollectionChanged(int)));
-    QObject::connect(ui->tableView, SIGNAL(itemSelectionChanged()), this, SLOT(onItemSelectionChanged()));
+    connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::onActionQuit);
+    connect(ui->actionSettings, &QAction::triggered, this, &MainWindow::onActionSettings);
+    connect(ui->actionAuthenticate, &QAction::triggered, this, &MainWindow::onActionAuthenticate);
+    connect(ui->actionFetch, &QAction::triggered, this, &MainWindow::onActionFetch);
+    connect(ui->actionDetails, &QAction::triggered, this, &MainWindow::onActionDetails);
+    connect(ui->actionExport, &QAction::triggered, this, &MainWindow::onActionExport);
+    connect(ui->actionAboutEmbyExplorer, &QAction::triggered, this, &MainWindow::onActionAboutEmbyExplorer);
+    connect(cbxCollection, &QComboBox::currentIndexChanged, this, &MainWindow::onCollectionChanged);
+    connect(ui->tableView, &QTableWidget::itemSelectionChanged, this, &MainWindow::onItemSelectionChanged);
     detailsVisible = false;
     ui->actionDetails->setEnabled(false);
     ui->actionExport->setEnabled(false);
@@ -176,7 +130,7 @@ void MainWindow::onActionFetch() {
     int i = 0; int j;
     QString id, id2;
     int cnt_movies = 0, cnt_series = 0, cnt_episodes = 0, cnt_videos = 0;
-    QString stats = "";
+    QString stats {};
     DetailsDataType o;
     if (cbxCollection->currentIndex() >= 0) {
         UserCollectionType coll = collections[cbxCollection->currentIndex()];
@@ -286,9 +240,7 @@ void MainWindow::onActionDetails() {
 }
 
 void MainWindow::onActionExport() {
-    if (ui->tableView->rowCount() == 0) {
-        return;
-    }
+    if (ui->tableView->rowCount() == 0) return;
     if (cbxCollection->currentIndex() >= 0) {
         UserCollectionType coll = collections[cbxCollection->currentIndex()];
         QVector<ColumnsType> columns = dis->getColumns(coll.CollectionType);
@@ -299,10 +251,10 @@ void MainWindow::onActionExport() {
                                     QString(EXPORT_SUFFIX);
         QString folder = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
         saveDialog.setParent(this, Qt::Dialog|
-                                       Qt::WindowSystemMenuHint|
-                                       Qt::WindowCloseButtonHint|
-                                       Qt::WindowTitleHint|
-                                       Qt::CustomizeWindowHint);
+                                   Qt::WindowSystemMenuHint|
+                                   Qt::WindowCloseButtonHint|
+                                   Qt::WindowTitleHint|
+                                   Qt::CustomizeWindowHint);
         saveDialog.setDirectory(folder);
         saveDialog.setAcceptMode(QFileDialog::AcceptSave);
         saveDialog.setFileMode(QFileDialog::AnyFile);
@@ -337,8 +289,8 @@ void MainWindow::onItemSelectionChanged() {
 }
 
 void MainWindow::displayDetails() {
-    QString overview = "", itemId2 = "";
-    QPixmap pix = {};
+    QString overview {}, itemId2 {};
+    QPixmap pix {};
     int row = ui->tableView->currentRow();
     if (row >= 0) {
         QString itemId = ui->tableView->item(row, 0)->text();

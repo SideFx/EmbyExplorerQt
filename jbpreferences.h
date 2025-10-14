@@ -1,5 +1,6 @@
 //---------------------------------------------------------------------------------
 // App preferences (w) 2025 Jan Buchholz
+// last change: 20251014
 //---------------------------------------------------------------------------------
 
 #pragma once
@@ -31,7 +32,11 @@ public:
     QFont PopFont(QString key);
 
 private:
-    QVariantMap prefs;
+    QVariantMap m_prefs;
+    QByteArray ascii85Encode(const QByteArray ba);
+    QByteArray ascii85Decode(const QByteArray ba, bool *error);
+    const quint8 cZero = 'z';
+    const quint8 cBase = 33;
 
 signals:
 };

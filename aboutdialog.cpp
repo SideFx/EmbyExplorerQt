@@ -1,6 +1,7 @@
 //-----------------------------------------------------------------------------------------------------------
 // Emby Explorer (Qt) (w) 2024-2025 by Jan Buchholz
 // UI, About dialog
+// last change: 20251014
 //-----------------------------------------------------------------------------------------------------------
 
 #include "globals.h"
@@ -9,7 +10,7 @@
 
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDialog) {
     ui->setupUi(this);
-    setFixedSize(this->geometry().width(),this->geometry().height());
+    setFixedSize(this->geometry().width(), this->geometry().height());
     ui->lbl_1->setText(QString(APP_NAME) + " " + QString(APP_VERSION));
     ui->lbl_2->setText(about_1);
     ui->lbl_3->setText(about_2);

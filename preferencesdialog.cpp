@@ -1,13 +1,14 @@
 //-----------------------------------------------------------------------------------------------------------
 // Emby Explorer (Qt) (w) 2024-2025 by Jan Buchholz
 // UI - Preferences dialog (connection, import options, font)
+// last change: 20251014
 //-----------------------------------------------------------------------------------------------------------
 #include "preferencesdialog.h"
 #include "ui_preferencesdialog.h"
 
 PreferencesDialog::PreferencesDialog(QWidget *parent) : QDialog(parent), ui(new Ui::PreferencesDialog) {
     ui->setupUi(this);
-    setFixedSize(this->geometry().width(),this->geometry().height());
+    setFixedSize(this->geometry().width(), this->geometry().height());
 }
 
 PreferencesDialog::~PreferencesDialog() {

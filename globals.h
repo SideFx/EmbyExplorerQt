@@ -1,6 +1,7 @@
 //-----------------------------------------------------------------------------------------------------------
 // Emby Explorer (Qt) (w) 2024-2025 by Jan Buchholz
 // Public stuff
+// last change: 20251014
 //-----------------------------------------------------------------------------------------------------------
 #pragma once
 #include <qhttpheaders.h>
@@ -9,7 +10,7 @@
 #define EMBY_PORT "8096"
 
 #define APP_NAME "Emby Explorer (Qt)"
-#define APP_VERSION "v1.3"
+#define APP_VERSION "v1.3.1"
 #define APP_NAMEQT "EmbyExplorerQt"
 #define SET_COMPANY "org.jan.buchholz"
 #define SET_WGEOMETRY "mainwindow-geometry"

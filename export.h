@@ -3,6 +3,7 @@
 // Export to Excel file
 // uses SimpleXlsx by Pavel Akimov <oxod.pavel@gmail.com> and Alexandr Belyak <programmeralex@bk.ru>
 // https://sourceforge.net/projects/simplexlsx/
+// last change: 20251014
 //-----------------------------------------------------------------------------------------------------------
 #pragma once
 #include <QObject>

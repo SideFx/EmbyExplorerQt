@@ -73,7 +73,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="aboutdialog.h" line="23"/>
+        <location filename="aboutdialog.h" line="24"/>
         <source>Danksagung an:
 Daniel Nicoletti (dantti) und Jay Two (j2Doll) für &quot;QXlsx&quot;
 https://github.com/QtExcel/QXlsx
@@ -86,7 +86,7 @@ https://github.com/QtExcel/QXlsx
 Dazzle-UI for the &quot;Dazzle-UI&quot; SVG icons</translation>
     </message>
     <message>
-        <location filename="aboutdialog.h" line="26"/>
+        <location filename="aboutdialog.h" line="27"/>
         <source>Erstellt mit Qt Community Edition v</source>
         <translation>Created with Qt Community Edition v</translation>
     </message>
@@ -102,93 +102,93 @@ Dazzle-UI for the &quot;Dazzle-UI&quot; SVG icons</translation>
 <context>
     <name>Dispatcher</name>
     <message>
-        <location filename="dispatcher.h" line="24"/>
+        <location filename="dispatcher.h" line="25"/>
         <source>n.v.</source>
         <oldsource>n.a.</oldsource>
         <translation>n.a.</translation>
     </message>
     <message>
-        <location filename="dispatcher.h" line="91"/>
+        <location filename="dispatcher.h" line="92"/>
         <source>Titel</source>
         <translation>Title</translation>
     </message>
     <message>
-        <location filename="dispatcher.h" line="92"/>
+        <location filename="dispatcher.h" line="93"/>
         <source>Originaltitel</source>
         <translation>Original title</translation>
     </message>
     <message>
-        <location filename="dispatcher.h" line="93"/>
+        <location filename="dispatcher.h" line="94"/>
         <source>Jahr</source>
         <translation>Year</translation>
     </message>
     <message>
-        <location filename="dispatcher.h" line="94"/>
+        <location filename="dispatcher.h" line="95"/>
         <source>Dauer</source>
         <translation>Runtime</translation>
     </message>
     <message>
-        <location filename="dispatcher.h" line="95"/>
+        <location filename="dispatcher.h" line="96"/>
         <source>Besetzung</source>
         <translation>Cast</translation>
     </message>
     <message>
-        <location filename="dispatcher.h" line="96"/>
+        <location filename="dispatcher.h" line="97"/>
         <source>Regisseur</source>
         <translation>Director</translation>
     </message>
     <message>
-        <location filename="dispatcher.h" line="97"/>
+        <location filename="dispatcher.h" line="98"/>
         <source>Studio</source>
         <translation>Studio</translation>
     </message>
     <message>
-        <location filename="dispatcher.h" line="98"/>
+        <location filename="dispatcher.h" line="99"/>
         <source>Genre</source>
         <translation>Genre</translation>
     </message>
     <message>
-        <location filename="dispatcher.h" line="99"/>
+        <location filename="dispatcher.h" line="100"/>
         <source>Ext.</source>
         <translation>Ext.</translation>
     </message>
     <message>
-        <location filename="dispatcher.h" line="100"/>
+        <location filename="dispatcher.h" line="101"/>
         <source>Codec</source>
         <translation>Codec</translation>
     </message>
     <message>
-        <location filename="dispatcher.h" line="101"/>
+        <location filename="dispatcher.h" line="102"/>
         <source>Auflösung</source>
         <translation>Resolution</translation>
     </message>
     <message>
-        <location filename="dispatcher.h" line="102"/>
+        <location filename="dispatcher.h" line="103"/>
         <source>Dateiname</source>
         <translation>Filename</translation>
     </message>
     <message>
-        <location filename="dispatcher.h" line="103"/>
+        <location filename="dispatcher.h" line="104"/>
         <source>Serie</source>
         <translation>Series</translation>
     </message>
     <message>
-        <location filename="dispatcher.h" line="104"/>
+        <location filename="dispatcher.h" line="105"/>
         <source>Staffel</source>
         <translation>Season</translation>
     </message>
     <message>
-        <location filename="dispatcher.h" line="105"/>
+        <location filename="dispatcher.h" line="106"/>
         <source>Episode</source>
         <translation>Episode</translation>
     </message>
     <message>
-        <location filename="dispatcher.h" line="106"/>
+        <location filename="dispatcher.h" line="107"/>
         <source>Ordner</source>
         <translation>Folder</translation>
     </message>
     <message>
-        <location filename="dispatcher.h" line="107"/>
+        <location filename="dispatcher.h" line="108"/>
         <source>Hinzugefügt am</source>
         <translation>Date added</translation>
     </message>
@@ -281,23 +281,23 @@ Dazzle-UI for the &quot;Dazzle-UI&quot; SVG icons</translation>
         <translation>Export to Excel file</translation>
     </message>
     <message>
-        <location filename="mainwindow.h" line="55"/>
+        <location filename="mainwindow.h" line="56"/>
         <source>Excel Arbeitsmappe (*.xlsx)</source>
         <translation>Excel Worksheet (*xlsx)</translation>
     </message>
     <message>
-        <location filename="mainwindow.h" line="59"/>
+        <location filename="mainwindow.h" line="60"/>
         <source>Filme: %1</source>
         <translation>Movies: %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.h" line="60"/>
+        <location filename="mainwindow.h" line="61"/>
         <source>Serien: %1, Episoden: %2</source>
         <oldsource>Serien: %1, Staffeln: %2, Episoden: %3</oldsource>
         <translation>Series: %1, Episodes: %2</translation>
     </message>
     <message>
-        <location filename="mainwindow.h" line="61"/>
+        <location filename="mainwindow.h" line="62"/>
         <source>Videos: %1</source>
         <translation>Videos: %1</translation>
     </message>
@@ -305,27 +305,27 @@ Dazzle-UI for the &quot;Dazzle-UI&quot; SVG icons</translation>
 <context>
     <name>MessageDialog</name>
     <message>
-        <location filename="messagedialog.cpp" line="12"/>
+        <location filename="messagedialog.cpp" line="13"/>
         <source>Der angegebene User wurde nicht gefunden.</source>
         <translation>User not found.</translation>
     </message>
     <message>
-        <location filename="messagedialog.cpp" line="16"/>
+        <location filename="messagedialog.cpp" line="17"/>
         <source>Die Abfrage auf existierende User schlug fehl.</source>
         <translation>Query for existing users failed.</translation>
     </message>
     <message>
-        <location filename="messagedialog.cpp" line="20"/>
+        <location filename="messagedialog.cpp" line="21"/>
         <source>Fehler bei Authentifizierung.</source>
         <translation>Authentication error.</translation>
     </message>
     <message>
-        <location filename="messagedialog.cpp" line="24"/>
+        <location filename="messagedialog.cpp" line="25"/>
         <source>Fehler beim Speichern der Excel Datei.</source>
         <translation>Error saving Excel file.</translation>
     </message>
     <message>
-        <location filename="messagedialog.cpp" line="28"/>
+        <location filename="messagedialog.cpp" line="29"/>
         <source>Es konnte keine Verbindung zum Emby Server hergestellt werden.</source>
         <translation>Unable to establish connection to the Emby server.</translation>
     </message>

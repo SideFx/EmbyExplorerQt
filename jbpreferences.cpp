@@ -1,5 +1,7 @@
 //---------------------------------------------------------------------------------
 // App preferences (w) 2025 Jan Buchholz
+// 20251010: use ascii85 instead of base64
+// last change: 20251014
 //---------------------------------------------------------------------------------
 
 #include "jbpreferences.h"
@@ -12,10 +14,9 @@
 #include <QDir>
 #include <QStandardPaths>
 #include <QApplication>
-#include "globals.h"
 
 JBPreferences::JBPreferences(QObject *parent) : QObject{parent} {
-    prefs.clear();
+    m_prefs.clear();
 }
 
 JBPreferences::~JBPreferences() {}
@@ -25,11 +26,12 @@ QString JBPreferences::GetPreferencesDefaultLocation() {
 }
 
 void JBPreferences::PushArray(QString key, QByteArray values) {
-    prefs.insert(key, QString(values.toBase64()));
+    m_prefs.insert(key, QString(ascii85Encode(values)));
 }
 
 void JBPreferences::PushString(QString key, QString value) {
-    prefs.insert(key, QString(value.toUtf8().toBase64()));
+    QByteArray ba = value.toUtf8();
+    m_prefs.insert(key, ascii85Encode(ba));
 }
 
 void JBPreferences::PushNumber(QString key, quint64 value) {
@@ -45,10 +47,15 @@ void JBPreferences::PushFont(QString key, QFont font) {
 }
 
 QByteArray JBPreferences::PopArray(QString key) {
-    QByteArray ba = {};
-    QString tmp = prefs.find(key).value().toString();
-    if (!tmp.isEmpty()) {
-        ba =  QByteArray::fromBase64(tmp.toUtf8());
+    QByteArray ba {};
+    bool error;
+    for (QVariantMap::iterator iter = m_prefs.begin(); iter != m_prefs.end(); iter++) {
+        if (iter.key() == key) {
+            QString tmp = iter.value().toString();
+            ba = ascii85Decode(tmp.toUtf8(), &error);
+            if (error) return {};
+            break;
+        }
     }
     return ba;
 }
@@ -74,11 +81,11 @@ QFont JBPreferences::PopFont(QString key) {
 
 bool JBPreferences::SavePreferences(QString filePath, QString orgName, QString appName) {
     bool b = false;
-    QJsonObject jprefs = QJsonObject::fromVariantMap(prefs);
+    QJsonObject jprefs = QJsonObject::fromVariantMap(m_prefs);
     QJsonDocument doc(jprefs);
     if (!QDir(filePath).exists()) QDir().mkpath(filePath);
     if (!QDir(filePath).exists()) return false;
-    QFile file(filePath + "/" + orgName + "." + appName + APP_OPTIONS_EXT);
+    QFile file(filePath + "/" + orgName + "." + appName + ".json");
     b = file.open(QIODevice::WriteOnly);
     if (b) {
         QTextStream out(&file);
@@ -89,12 +96,12 @@ bool JBPreferences::SavePreferences(QString filePath, QString orgName, QString a
 }
 
 bool JBPreferences::LoadPreferences(QString filePath, QString orgName, QString appName) {
-    prefs.clear();
+    m_prefs.clear();
     QJsonObject jprefs;
     QJsonDocument doc;
     QJsonParseError err;
-    QString data = "";
-    QFile file(filePath + "/" + orgName + "." + appName + APP_OPTIONS_EXT);
+    QString data {};
+    QFile file(filePath + "/" + orgName + "." + appName + ".json");
     if (!file.exists()) return false;
     bool b = file.open(QIODevice::ReadOnly | QIODevice::Text);
     if (b) {
@@ -108,7 +115,7 @@ bool JBPreferences::LoadPreferences(QString filePath, QString orgName, QString a
         b = !doc.isNull();
         if (b) {
             jprefs = doc.object();
-            prefs = jprefs.toVariantMap();
+            m_prefs = jprefs.toVariantMap();
         }
     }
     return b;
@@ -121,3 +128,74 @@ bool JBPreferences::SavePreferencesToDefaultLocation(QString orgName, QString ap
 bool JBPreferences::LoadPreferencesFromDefaultLocation(QString orgName, QString appName) {
     return LoadPreferences(GetPreferencesDefaultLocation(), orgName, appName);
 }
+
+QByteArray JBPreferences::ascii85Encode(const QByteArray ba) {
+    QByteArray result {};
+    quint32 number = 0;
+    quint64 i = 0;
+    int j;
+    int pad = 0;
+    quint8 enc[5] {};
+    const quint64 l = ba.size();
+    uint8_t c;
+    while (i < l) {
+        for (j = 0; j < 4; j++) {
+            if (i < l) c = ba[i++]; else {
+                c = 0x00;
+                pad++;
+            }
+            (number <<= 8) |= c;
+        }
+        if (number > 0) {
+            enc[4] = (number % 85) + cBase;
+            number /= 85;
+            enc[3] = (number % 85) + cBase;
+            number /= 85;
+            enc[2] = (number % 85) + cBase;
+            number /= 85;
+            enc[1] = (number % 85) + cBase;
+            number /= 85;
+            enc[0] = (number % 85) + cBase;
+            for (j = 0; j < (4 - pad) + 1; j++) result.append(enc[j]);
+        }
+        else result.append(cZero);
+    }
+    return result;
+}
+
+QByteArray JBPreferences::ascii85Decode(const QByteArray ba, bool *error) {
+    QByteArray result {};
+    quint32 number = 0;
+    quint64 i = 0;
+    int j;
+    *error = false;
+    const quint64 l = ba.size();
+    while (i < l) {
+        if (ba[i] == cZero) {
+            for (j = 0; j < 4; j++) result.append(quint8(0));
+            i++;
+        }
+        else {
+            number = 0;
+            int cnt = 0;
+            for (j = 0; j < 5; j++) {
+                if (i < l) {
+                    if (ba[i] < 33 || ba[i] > 117) {
+                        *error = true;
+                        return {};
+                    }
+                    number = number * 85 + (ba[i] - cBase);
+                    i++;
+                    cnt++;
+                }
+                else number = number * 85 + 84;
+            }
+            if (cnt >= 2) result.append(number >> 24);
+            if (cnt >= 3) result.append(number >> 16);
+            if (cnt >= 4)result.append(number >> 8);
+            if (cnt == 5) result.append(number);
+        }
+    }
+    return result;
+}
+

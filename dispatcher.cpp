@@ -1,6 +1,7 @@
 //-----------------------------------------------------------------------------------------------------------
 // Emby Explorer (Qt) (w) 2024-2025 by Jan Buchholz
 // Control logic
+// last change: 20251014
 //-----------------------------------------------------------------------------------------------------------
 #include "dispatcher.h"
 #include "restapi.h"
@@ -15,7 +16,7 @@ Dispatcher::Dispatcher(QObject *parent) : QObject{parent} {
 
 Dispatcher::~Dispatcher() {}
 
-// MacOS Sequoia: This should trigger the grant network access popup
+// MacOS Sequoia and Tahoe: This should trigger the grant network access popup
 bool Dispatcher::EmbyCheckHost(embySettings settings) {
     QTcpSocket socket;
     socket.connectToHost(settings.address, settings.port.toInt());
@@ -25,7 +26,7 @@ bool Dispatcher::EmbyCheckHost(embySettings settings) {
 
 int Dispatcher::EmbyAuthenticate(embySettings settings) {
     int returnCode = MSG_OK;
-    restParameters para = {};
+    restParameters para {};
     QNetworkReply::NetworkError e;
     QJsonDocument jsonDoc;
     userId.clear();
@@ -76,7 +77,7 @@ int Dispatcher::EmbyAuthenticate(embySettings settings) {
 
 QVector<UserCollectionType> Dispatcher::EmbyGetCollections() {
     QVector<UserCollectionType> collections;
-    restParameters para = {};
+    restParameters para {};
     QNetworkReply::NetworkError e;
     QJsonDocument jsonDoc;
     RestApi *api = new RestApi();
@@ -109,7 +110,7 @@ QVector<QVariant> Dispatcher::EmbyGetCollectionData(QString collectionId, QStrin
     MovieDataTable tm;
     SeriesDataTable ts;
     VideoDataTable tv;
-    restParameters para = {};
+    restParameters para {};
     QNetworkReply::NetworkError e;
     QJsonDocument jsonDoc;
     QString typeKind;
@@ -160,7 +161,7 @@ QVector<QVariant> Dispatcher::EmbyGetCollectionData(QString collectionId, QStrin
 
 QByteArray Dispatcher::EmbyGetPrimaryPictureForItem(QString itemId) {
     QByteArray pic;
-    restParameters para = {};
+    restParameters para {};
     QNetworkReply::NetworkError e;
     RestApi *api = new RestApi();
     para.url = baseUrl + endpointGETImages;
@@ -284,11 +285,7 @@ QVector<QVariant> Dispatcher::sortMovieData(MovieDataTable tm) {
 QVector<QVariant> Dispatcher::sortSeriesData(SeriesDataTable ts) {
     QVector<QVariant> gen;
     QVariant vv;
-    SeriesDataTable episodes;
-    SeriesDataTable episodestmp;
-    SeriesDataTable seasons;
-    SeriesDataTable seasonstmp;
-    SeriesDataTable series;
+    SeriesDataTable episodes, episodestmp, seasons, seasonstmp, series;
     for (const SeriesDataType &s : ts) {
         if (s.TypeKind == TYPEKIND_EPISODE) episodes.append(s);
         else if (s.TypeKind == TYPEKIND_SEASON) seasons.append(s);
@@ -345,8 +342,7 @@ QVector<QVariant> Dispatcher::sortSeriesData(SeriesDataTable ts) {
 QVector<QVariant> Dispatcher::sortVideoData(VideoDataTable tv) {
     QVector<QVariant> gen;
     QVariant vv;
-    VideoDataTable folders;
-    VideoDataTable videos;
+    VideoDataTable folders, videos;
     for (const VideoDataType &v : tv) {
         if (v.TypeKind == TYPEKIND_VIDEO) videos.append(v);
         else if (v.TypeKind == TYPEKIND_FOLDER) folders.append(v);
@@ -386,7 +382,7 @@ QString Dispatcher::createHeader() {
 
 QString Dispatcher::evalJsonPeopleData(QJsonArray peopleArray, QString peopleType, int maxItems) {
     int count = 0;
-    QString s = "";
+    QString s {};
     for (const QJsonValue &value : std::as_const(peopleArray)) {
         QString typeKind = value["Type"].toString();
         if (typeKind == peopleType) {
@@ -401,7 +397,7 @@ QString Dispatcher::evalJsonPeopleData(QJsonArray peopleArray, QString peopleTyp
 
 QString Dispatcher::evalJsonStudioData(QJsonArray studioArray, int maxItems) {
     int count = 0;
-    QString s = "";
+    QString s {};
     for (const QJsonValue &value : std::as_const(studioArray)) {
         if (maxItems == 0 || count < maxItems) {
             s = appendItem(s, value["Name"].toString());
@@ -413,7 +409,7 @@ QString Dispatcher::evalJsonStudioData(QJsonArray studioArray, int maxItems) {
 
 QString Dispatcher::evalJsonGenreData(QJsonArray genreArray, int maxItems) {
     int count = 0;
-    QString s = "";
+    QString s {};
     for (const QJsonValue &value : std::as_const(genreArray)) {
         if (maxItems == 0 || count < maxItems) {
             s = appendItem(s, value.toString());
@@ -431,8 +427,7 @@ QString Dispatcher::evalJsonResolutionData(QJsonValue value) {
 }
 
 QString Dispatcher::evalJsonMediaSourceData(QJsonArray mediasourceArray) {
-    QString video = "";
-    QString audio = "";
+    QString video {}, audio {};
     for (const QJsonValue &value : std::as_const(mediasourceArray)) {
         QJsonArray mediastreamArray = value["MediaStreams"].toArray();
         for (const QJsonValue &media : std::as_const(mediastreamArray)) {
@@ -452,7 +447,7 @@ QString Dispatcher::evalJsonMediaSourceData(QJsonArray mediasourceArray) {
 }
 
 QString Dispatcher::evalRuntimeTicks(qint64 ticks) {
-    QString s = "";
+    QString s {};
     qint64 r, hours, minutes;
     if (ticks > 0) {
         r = ticks / 10000000;

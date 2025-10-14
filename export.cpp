@@ -2,6 +2,7 @@
 // Emby Explorer (Qt) (w) 2024-2025 by Jan Buchholz
 // Export to Excel file
 // uses QXlsx by Daniel Nicoletti (dantti): https://github.com/QtExcel/QXlsx
+// last change: 20251014
 //-----------------------------------------------------------------------------------------------------------
 #include "export.h"
 #include "xlsxdocument.h"

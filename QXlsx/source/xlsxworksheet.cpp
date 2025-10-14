@@ -1551,8 +1551,6 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer,
                                        int col,
                                        std::shared_ptr<Cell> cell) const
 {
-    Q_Q(const Worksheet);
-
     // This is the innermost loop so efficiency is important.
     QString cell_pos = CellReference(row, col).toString();
 
@@ -1596,7 +1594,7 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer,
                 writer.writeStartElement(QStringLiteral("r"));
                 if (string.fragmentFormat(i).hasFontData()) {
                     writer.writeStartElement(QStringLiteral("rPr"));
-                    //: Todo
+                    // Todo
                     writer.writeEndElement(); // rPr
                 }
                 writer.writeStartElement(QStringLiteral("t"));
@@ -2414,7 +2412,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
                                    !(reader.name() == QLatin1String("is") &&
                                      reader.tokenType() == QXmlStreamReader::EndElement)) {
                                 if (reader.readNextStartElement()) {
-                                    //: Todo, add rich text read support
+                                    // Todo, add rich text read support
                                     if (reader.name() == QLatin1String("t")) {
                                         cell->d_func()->value = reader.readElementText();
                                     }
