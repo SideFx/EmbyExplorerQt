@@ -10,8 +10,9 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(QT_NO_PRIVATE_MODULE_WARNING ON)
 
-find_package(QT NAMES Qt6 REQUIRED COMPONENTS Gui Widgets Network LinguistTools)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui Widgets Network LinguistTools)
+#added GuiPrivate Qt6.10
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS Gui GuiPrivate Widgets Network LinguistTools)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui GuiPrivate Widgets Network LinguistTools)
 
 set(TS_FILES EmbyExplorerQt_en.ts)
 set(I18N_FILES
