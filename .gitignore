@@ -77,5 +77,3 @@ CMakeLists.txt.user*
 .rcc/
 .uic/
 /build*/
-.DS_Store
-CMakeLists.txt.user.b73da40
