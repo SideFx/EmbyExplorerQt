@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Über Emby Explorer (Qt)</string>
+   <string>About Emby Explorer (Qt)</string>
   </property>
   <widget class="QLabel" name="lbl_1">
    <property name="geometry">

@@ -255,11 +255,11 @@ void MainWindow::onActionExport() {
                                    Qt::WindowCloseButtonHint|
                                    Qt::WindowTitleHint|
                                    Qt::CustomizeWindowHint);
+        saveDialog.setOption(QFileDialog::DontUseNativeDialog, true);
         saveDialog.setDirectory(folder);
         saveDialog.setAcceptMode(QFileDialog::AcceptSave);
         saveDialog.setFileMode(QFileDialog::AnyFile);
         saveDialog.setNameFilter(FILE_FILTER);
-        saveDialog.setOptions(QFileDialog::DontUseCustomDirectoryIcons);
         saveDialog.setViewMode(QFileDialog::Detail);
         saveDialog.selectFile(preferredFileName);
         if (saveDialog.exec() != QDialog::Accepted) return;

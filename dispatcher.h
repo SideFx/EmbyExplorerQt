@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------------------------------------
 // Emby Explorer (Qt) (w) 2024-2025 by Jan Buchholz
 // Control logic
-// last change: 20251014
+// last change: 20251128
 //-----------------------------------------------------------------------------------------------------------
 #pragma once
 #include <QVariant>
@@ -22,7 +22,7 @@ public:
     QByteArray EmbyGetPrimaryPictureForItem(QString itemId);
     QVector<ColumnsType> getColumns(QString collectionType);
     QString CollectionTypes[3] = {COLLECTION_MOVIES, COLLECTION_TVSHOWS, COLLECTION_HOMEVIDEOS};
-    QString const TXT_NA = tr("n.v.");
+    QString const TXT_NA = tr("n.a.");
     QString const imageFormat = "png";
 
  private:
@@ -89,23 +89,23 @@ public:
     QString const endpointGETItems = "/Users/" + _UserId + "/Items";
     QString const endpointGETImages = "/Items/" + _ItemId + "/Images";
 
-    QString const CAP_TITLE = tr("Titel");
-    QString const CAP_ORIGINALTITLE = tr("Originaltitel");
-    QString const CAP_YEAR = tr("Jahr");
-    QString const CAP_TIME = tr("Dauer");
-    QString const CAP_ACTORS = tr("Besetzung");
-    QString const CAP_DIRECTOR = tr("Regisseur");
+    QString const CAP_TITLE = tr("Title");
+    QString const CAP_ORIGINALTITLE = tr("Original title");
+    QString const CAP_YEAR = tr("Year");
+    QString const CAP_TIME = tr("Runtime");
+    QString const CAP_ACTORS = tr("Cast");
+    QString const CAP_DIRECTOR = tr("Director");
     QString const CAP_STUDIO = tr("Studio");
     QString const CAP_GENRE = tr("Genre");
     QString const CAP_EXTENSION = tr("Ext.");
     QString const CAP_CODEC = tr("Codec");
-    QString const CAP_RESOLUTION = tr("Auflösung");
-    QString const CAP_FILENAME = tr("Dateiname");
-    QString const CAP_SERIES = tr("Serie");
-    QString const CAP_SEASON = tr("Staffel");
+    QString const CAP_RESOLUTION = tr("Resolution");
+    QString const CAP_FILENAME = tr("File name");
+    QString const CAP_SERIES = tr("Series");
+    QString const CAP_SEASON = tr("Season");
     QString const CAP_EPISODE = tr("Episode");
-    QString const CAP_FOLDER = tr("Ordner");
-    QString const CAP_DATECREATED = tr("Hinzugefügt am");
+    QString const CAP_FOLDER = tr("Folder");
+    QString const CAP_DATECREATED = tr("Added on");
 
     QVector<DataType> dataTypes = {};
 

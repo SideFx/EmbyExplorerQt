@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------------------------------------
 // Emby Explorer (Qt) (w) 2024-2025 by Jan Buchholz
 // UI - Main window
-// last change: 20251014
+// last change: 20251128
 //-----------------------------------------------------------------------------------------------------------
 #pragma once
 #include <QMainWindow>
@@ -53,12 +53,12 @@ private:
     void closeEvent(QCloseEvent *e);
     void resizeEvent(QResizeEvent *e);
     void centerDialog(QDialog& dlg);
-    QString const FILE_FILTER = tr("Excel Arbeitsmappe (*.xlsx)");
+    QString const FILE_FILTER = tr("Excel Worksheet (*.xlsx)");
     MessageDialog messageDialog;
     AboutDialog aboutDialog;
 
-    QString const CAP_MOVIES_STATS = tr("Filme: %1");
-    QString const CAP_SERIES_STATS = tr("Serien: %1, Episoden: %2");
+    QString const CAP_MOVIES_STATS = tr("Movies: %1");
+    QString const CAP_SERIES_STATS = tr("Series: %1, Episodes: %2");
     QString const CAP_VIDEOS_STATS = tr("Videos: %1");
 
 private slots:

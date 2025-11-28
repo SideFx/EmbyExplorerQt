@@ -10,23 +10,23 @@ MessageDialog::MessageDialog(QObject *parent) : QObject{parent} {
     message m;
     m = {
         .msgNumber = MSG_ERR10,
-        .msgString = tr("Der angegebene User wurde nicht gefunden.")};
+        .msgString = tr("User record not found.")};
     messages.append(m);
     m = {
          .msgNumber = MSG_ERR11,
-         .msgString = tr("Die Abfrage auf existierende User schlug fehl.")};
+         .msgString = tr("Failed to execute query for existing users.")};
     messages.append(m);
     m = {
          .msgNumber = MSG_ERR12,
-         .msgString = tr("Fehler bei Authentifizierung.")};
+         .msgString = tr("Login authentication unsuccessful.")};
     messages.append(m);
     m = {
          .msgNumber = MSG_ERR13,
-         .msgString = tr("Fehler beim Speichern der Excel Datei.")};
+         .msgString = tr("Error occurred during Excel file save.")};
     messages.append(m);
     m = {
          .msgNumber = MSG_ERR14,
-         .msgString = tr("Es konnte keine Verbindung zum Emby Server hergestellt werden.")};
+         .msgString = tr("Could not establish a connection to the Emby server.")};
     messages.append(m);
 }
 

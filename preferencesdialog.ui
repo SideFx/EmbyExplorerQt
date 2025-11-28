@@ -17,11 +17,14 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Einstellungen</string>
+   <string>Preferences</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resource.qrc">
     <normaloff>:/window/assets/emby.png</normaloff>:/window/assets/emby.png</iconset>
+  </property>
+  <property name="locale">
+   <locale language="English" country="Germany"/>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -56,7 +59,7 @@
    </property>
    <widget class="QWidget" name="tab1">
     <attribute name="title">
-     <string>Emby Server</string>
+     <string>Emby server</string>
     </attribute>
     <widget class="QCheckBox" name="chk_https">
      <property name="geometry">
@@ -68,7 +71,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Https verwenden</string>
+      <string>Use https</string>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_address">
@@ -81,7 +84,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Adresse</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Address&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="edt_address">
@@ -127,7 +130,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Benutzer Name</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;User name&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="edt_username">
@@ -150,7 +153,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Passwort</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Password&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="edt_password">
@@ -169,7 +172,7 @@
    </widget>
    <widget class="QWidget" name="tab2">
     <attribute name="title">
-     <string>Kollektionen</string>
+     <string>Collections</string>
     </attribute>
     <widget class="QGroupBox" name="groupBox">
      <property name="geometry">
@@ -193,7 +196,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Max. Anzahl Schauspieler</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max number of actors&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QLabel" name="lbl_maxDirectors">
@@ -206,7 +209,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Max. Anzahl Regisseure</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max number of directors&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QLabel" name="lbl_maxStudios">
@@ -219,7 +222,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Max. Anzahl Studios</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max number of studios&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QLabel" name="lbl_maxGenres">
@@ -232,7 +235,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Max. Anzahl Genres</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max number of genres&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QSpinBox" name="spb_maxActors">
@@ -315,7 +318,7 @@
    </widget>
    <widget class="QWidget" name="tab3">
     <attribute name="title">
-     <string>Optionen</string>
+     <string>Options</string>
     </attribute>
     <widget class="QLabel" name="lbl_fontname">
      <property name="geometry">
@@ -327,7 +330,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Schriftart</string>
+      <string>Font</string>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_fontsize">
@@ -340,7 +343,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Schriftgrösse</string>
+      <string>Font size</string>
      </property>
     </widget>
     <widget class="QFontComboBox" name="cbx_fontfamily">

@@ -68,18 +68,18 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>30</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>Datei</string>
+     <string>File</string>
     </property>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>Hilfe</string>
+     <string>Help</string>
     </property>
     <addaction name="actionAboutEmbyExplorer"/>
    </widget>
@@ -128,10 +128,10 @@
      <normaloff>:/png/assets/tb_preferences.png</normaloff>:/png/assets/tb_preferences.png</iconset>
    </property>
    <property name="text">
-    <string>Einstellungen</string>
+    <string>Preferences</string>
    </property>
    <property name="toolTip">
-    <string>Einstellungen</string>
+    <string>App preferences</string>
    </property>
   </action>
   <action name="actionQuit">
@@ -140,10 +140,16 @@
      <normaloff>:/png/assets/tb_quit.png</normaloff>:/png/assets/tb_quit.png</iconset>
    </property>
    <property name="text">
-    <string>Beenden</string>
+    <string>Quit</string>
+   </property>
+   <property name="toolTip">
+    <string>Quit application</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::QuitRole</enum>
    </property>
   </action>
   <action name="actionAboutEmbyExplorer">
@@ -152,7 +158,13 @@
      <normaloff>:/png/assets/tb_about.png</normaloff>:/png/assets/tb_about.png</iconset>
    </property>
    <property name="text">
-    <string>Über Emby Explorer</string>
+    <string>About</string>
+   </property>
+   <property name="toolTip">
+    <string>About Emby Explorer</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::AboutRole</enum>
    </property>
   </action>
   <action name="actionAuthenticate">
@@ -161,10 +173,10 @@
      <normaloff>:/png/assets/tb_login.png</normaloff>:/png/assets/tb_login.png</iconset>
    </property>
    <property name="text">
-    <string>Anmelden</string>
+    <string>Authenticate</string>
    </property>
    <property name="toolTip">
-    <string>Am Emby Server anmelden</string>
+    <string>Login to the Emby server</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>
@@ -179,10 +191,10 @@
      <normaloff>:/png/assets/tb_fetch.png</normaloff>:/png/assets/tb_fetch.png</iconset>
    </property>
    <property name="text">
-    <string>Abrufen</string>
+    <string>Fetch</string>
    </property>
    <property name="toolTip">
-    <string>Daten vom Server abrufen</string>
+    <string>Fetch data from Emby server</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>
@@ -203,7 +215,7 @@
     <string>Details</string>
    </property>
    <property name="toolTip">
-    <string>Details anzeigen</string>
+    <string>Show details</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>
@@ -221,7 +233,7 @@
     <string>Export</string>
    </property>
    <property name="toolTip">
-    <string>Export in Excel Datei</string>
+    <string>Export to Excel file</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>
