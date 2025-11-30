@@ -1,8 +1,9 @@
-//---------------------------------------------------------------------------------
-// App preferences (w) 2025 Jan Buchholz
-// 20251010: use ascii85 instead of base64
-// last change: 20251014
-//---------------------------------------------------------------------------------
+/////////////////////////////////////////////////////////////////////////////
+// Name:        jbpreferences.cpp
+// Purpose:     App preferences
+// Author:      Jan Buchholz
+// Created:     2025-11-19
+/////////////////////////////////////////////////////////////////////////////
 
 #include "jbpreferences.h"
 #include <QJsonDocument>
@@ -79,13 +80,20 @@ QFont JBPreferences::PopFont(QString key) {
     return font;
 }
 
+QString JBPreferences::createPath(QString path, QString orgName, QString appName) {
+    QString part = orgName + "." + appName + ".json";
+    QFileInfo fileInfo(path, part);
+    return fileInfo.absoluteFilePath();
+}
+
 bool JBPreferences::SavePreferences(QString filePath, QString orgName, QString appName) {
     bool b = false;
     QJsonObject jprefs = QJsonObject::fromVariantMap(m_prefs);
     QJsonDocument doc(jprefs);
     if (!QDir(filePath).exists()) QDir().mkpath(filePath);
     if (!QDir(filePath).exists()) return false;
-    QFile file(filePath + "/" + orgName + "." + appName + ".json");
+    QString path = createPath(filePath, orgName, appName);
+    QFile file(path);
     b = file.open(QIODevice::WriteOnly);
     if (b) {
         QTextStream out(&file);
@@ -101,7 +109,8 @@ bool JBPreferences::LoadPreferences(QString filePath, QString orgName, QString a
     QJsonDocument doc;
     QJsonParseError err;
     QString data {};
-    QFile file(filePath + "/" + orgName + "." + appName + ".json");
+    QString path = createPath(filePath, orgName, appName);
+    QFile file(path);
     if (!file.exists()) return false;
     bool b = file.open(QIODevice::ReadOnly | QIODevice::Text);
     if (b) {

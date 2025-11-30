@@ -1,9 +1,12 @@
-//---------------------------------------------------------------------------------
-// App preferences (w) 2025 Jan Buchholz
-// last change: 20251014
-//---------------------------------------------------------------------------------
+/////////////////////////////////////////////////////////////////////////////
+// Name:        jbpreferences.h
+// Purpose:     App preferences (header)
+// Author:      Jan Buchholz
+// Created:     2025-11-19
+/////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+
 #include <QObject>
 #include <QJsonObject>
 #include <QVariant>
@@ -35,9 +38,9 @@ private:
     QVariantMap m_prefs;
     QByteArray ascii85Encode(const QByteArray ba);
     QByteArray ascii85Decode(const QByteArray ba, bool *error);
+    QString createPath(QString path, QString orgName, QString appName);
     const quint8 cZero = 'z';
     const quint8 cBase = 33;
 
-signals:
 };
 
