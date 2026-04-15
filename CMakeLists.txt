@@ -14,8 +14,6 @@ set(QT_NO_PRIVATE_MODULE_WARNING ON)
 find_package(QT NAMES Qt6 REQUIRED COMPONENTS Gui GuiPrivate Widgets Network)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui GuiPrivate Widgets Network)
 
-set(QM_FILES ${CMAKE_SOURCE_DIR}/translations/qt_en.qm)
-
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
@@ -77,38 +75,4 @@ install(TARGETS EmbyExplorerQt
 
 if(QT_VERSION_MAJOR GREATER_EQUAL 6)
     qt_finalize_executable(EmbyExplorerQt)
-endif()
-
-# --- Windows ---
-if(WIN32)
-    set(QM_DEST ${CMAKE_BINARY_DIR}/translations)
-    add_custom_command(
-        TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E make_directory ${QM_DEST}
-        COMMAND ${CMAKE_COMMAND} -E copy ${QM_FILES} ${QM_DEST}
-    )
-endif()
-
-# --- macOS ---
-if(APPLE)
-    # App-Bundle in Resources/i18n/
-    set(QM_DEST ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app/Contents/Resources/i18n)
-    add_custom_command(
-        TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E make_directory ${QM_DEST}
-        COMMAND ${CMAKE_COMMAND} -E copy ${QM_FILES} ${QM_DEST}
-    )
-endif()
-
-# --- Linux/Unix ---
-if(UNIX AND NOT APPLE)
-    # Local
-    set(QM_DEST ${CMAKE_BINARY_DIR}/translations)
-    add_custom_command(
-        TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E make_directory ${QM_DEST}
-        COMMAND ${CMAKE_COMMAND} -E copy ${QM_FILES} ${QM_DEST}
-    )
-    # System
-    install(FILES ${QM_FILES} DESTINATION share/${PROJECT_NAME}/translations)
 endif()
